@@ -55,7 +55,7 @@
         <activity android:name=".WelcomeActivity" />
 
         <activity android:name=".DashboardActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
