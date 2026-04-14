@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.HabitTracker" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="colorPrimaryVariant">@color/dark_green_light</item>
+        <item name="colorSecondary">@color/moss_green</item>
+        <item name="android:colorBackground">@color/surface_primary</item>
+        <item name="colorSurface">@color/surface_card</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:statusBarColor">@color/dark_green</item>
+        <item name="android:navigationBarColor">@color/beige</item>
+    </style>
+
+    <style name="Theme.HabitTracker.Splash" parent="Theme.HabitTracker">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+</resources>

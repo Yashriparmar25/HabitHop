@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Left ear -->
+    <path
+        android:fillColor="#5C3D2E"
+        android:pathData="M25,35 C20,20 35,15 40,28 Z"/>
+    <!-- Left ear inner -->
+    <path
+        android:fillColor="#D3968C"
+        android:pathData="M27,33 C24,23 34,20 37,29 Z"/>
+
+    <!-- Right ear -->
+    <path
+        android:fillColor="#5C3D2E"
+        android:pathData="M95,35 C100,20 85,15 80,28 Z"/>
+    <!-- Right ear inner -->
+    <path
+        android:fillColor="#D3968C"
+        android:pathData="M93,33 C96,23 86,20 83,29 Z"/>
+
+    <!-- Head -->
+    <path
+        android:fillColor="#7A5230"
+        android:pathData="M60,95 C30,95 18,75 18,55 C18,35 35,20 60,20 C85,20 102,35 102,55 C102,75 90,95 60,95 Z"/>
+
+    <!-- Face base (lighter) -->
+    <path
+        android:fillColor="#A0714F"
+        android:pathData="M60,88 C42,88 35,75 35,65 C35,55 45,48 60,48 C75,48 85,55 85,65 C85,75 78,88 60,88 Z"/>
+
+    <!-- Left eye -->
+    <path
+        android:fillColor="#2C1810"
+        android:pathData="M45,52 C45,48 51,48 51,52 C51,56 45,56 45,52 Z"/>
+    <!-- Left eye shine -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M47,50 C47,49 49,49 49,50 C49,51 47,51 47,50 Z"/>
+
+    <!-- Right eye -->
+    <path
+        android:fillColor="#2C1810"
+        android:pathData="M69,52 C69,48 75,48 75,52 C75,56 69,56 69,52 Z"/>
+    <!-- Right eye shine -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M71,50 C71,49 73,49 73,50 C73,51 71,51 71,50 Z"/>
+
+    <!-- Nose -->
+    <path
+        android:fillColor="#2C1810"
+        android:pathData="M55,62 C55,59 65,59 65,62 C65,65 62,67 60,67 C58,67 55,65 55,62 Z"/>
+
+    <!-- Smile -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#2C1810"
+        android:strokeWidth="2"
+        android:pathData="M52,70 C55,74 65,74 68,70"/>
+
+    <!-- Left cheek blush -->
+    <path
+        android:fillColor="#D3968C"
+        android:fillAlpha="0.5"
+        android:pathData="M36,62 C36,57 44,57 44,62 C44,67 36,67 36,62 Z"/>
+
+    <!-- Right cheek blush -->
+    <path
+        android:fillColor="#D3968C"
+        android:fillAlpha="0.5"
+        android:pathData="M76,62 C76,57 84,57 84,62 C84,67 76,67 76,62 Z"/>
+
+</vector>

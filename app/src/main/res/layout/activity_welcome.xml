@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface_primary">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Dark green header band -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/dark_green"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:paddingTop="52dp"
+                android:paddingBottom="48dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="56dp"
+                    app:cardElevation="12dp"
+                    app:strokeColor="@color/beige"
+                    app:strokeWidth="3dp"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:id="@+id/iv_welcome_avatar"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/turtle"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tv_welcome_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hero"
+                    android:textColor="@color/beige"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your habit journey begins now "
+                    android:textColor="#80F7F4D5"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+
+            <!-- Profile details card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="-24dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/beige">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Profile Details"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_green"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Birthday row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="14dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=" Birthday"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:id="@+id/tv_welcome_birthday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#1A000000"
+                        android:layout_marginBottom="14dp"/>
+
+                    <!-- Gender row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="14dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=" Gender"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:id="@+id/tv_welcome_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#1A000000"
+                        android:layout_marginBottom="14dp"/>
+
+                    <!-- Goal row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Main Goal"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:id="@+id/tv_welcome_goal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Habits card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/beige">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Habits"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_green"
+                        android:layout_marginBottom="14dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_welcome_habits"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+
+                    <TextView
+                        android:id="@+id/tv_no_habits"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No habits added yet — you can add them from the dashboard!"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Let's Go button -->
+            <Button
+                android:id="@+id/btn_go_dashboard"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="32dp"
+                android:backgroundTint="@color/dark_green"
+                android:text="Let's Go!"
+                android:textColor="@color/beige"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ══════════════════════════════════════════════════════════
+         ANIMAL COMPANION SHEET — FIX: added background color
+    ══════════════════════════════════════════════════════════ -->
+    <LinearLayout
+        android:id="@+id/ll_companion_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="@color/beige"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="28dp"
+        android:translationY="600dp"
+        android:elevation="16dp"
+        android:visibility="invisible">
+
+        <!-- FIX: changed app:tint → android:tint -->
+        <ImageButton
+            android:id="@+id/btn_dismiss_companion"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="end"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:scaleType="fitCenter"
+            android:padding="6dp"
+            android:tint="@color/dark_green"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Dismiss companion"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_companion_animal"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:src="@drawable/turtle"
+                android:scaleType="fitCenter"
+                android:layout_marginEnd="16dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/surface_primary"
+                android:padding="14dp">
+
+                <TextView
+                    android:id="@+id/tv_companion_greeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Heyyy! 👋 Looking great! I'm your buddy for this journey. Ready to crush those habits together? Let's gooo! 🎉"
+                    android:textSize="13sp"
+                    android:textColor="#2D3436"
+                    android:lineSpacingMultiplier="1.45"/>
+
+                <TextView
+                    android:id="@+id/tv_companion_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🐾 Shellshock"
+                    android:textSize="11sp"
+                    android:textColor="@color/moss_green"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

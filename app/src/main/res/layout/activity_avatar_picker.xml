@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/Pastel_Pink"
+    android:padding="24dp">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Your Avatar "
+        android:textSize="24sp"
+        android:textStyle="italic"
+        android:textColor="@color/dark_green"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose a cute buddy to represent you!"
+        android:textSize="16sp"
+        android:textColor="@color/Black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="32dp"/>
+
+    <!-- 2-column grid of avatars -->
+    <Button
+        android:id="@+id/btn_open_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/dark_green"
+        android:text="Upload from Gallery" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="2"
+        android:layout_gravity="center_horizontal">
+
+        <!-- Turtle -->
+        <LinearLayout
+            android:id="@+id/ll_avatar_turtle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_turtle"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/turtle"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shellshock"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!-- Rabbit -->
+        <LinearLayout
+            android:id="@+id/ll_avatar_rabbit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_rabbit"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/rabbit"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hopster"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!-- Sloth -->
+        <LinearLayout
+            android:id="@+id/ll_avatar_sloth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_sloth"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/sloth"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SlowMoKing"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!-- Penguin -->
+        <LinearLayout
+            android:id="@+id/ll_avatar_penguin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_penguin"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/penguin"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IceWaddle"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!-- Duck -->
+        <LinearLayout
+            android:id="@+id/ll_avatar_duck"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_duck"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/duck"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QuackAttack"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!-- Cow -->
+        <LinearLayout
+            android:id="@+id/ll_avatar_cow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_cow"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/cow"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Moooo"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!---cat-->
+        <LinearLayout
+            android:id="@+id/ll_avatar_cat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_cat"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/cat"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BowMeow"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!--squirrel-->
+        <LinearLayout
+            android:id="@+id/ll_avatar_squirrel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_squirrel"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/squirrel"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ChatterChip"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+    <!---dog-->
+        <LinearLayout
+            android:id="@+id/ll_avatar_dog"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_dog"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/dogoo"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FluffBloom"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!---pig-->
+
+        <LinearLayout
+            android:id="@+id/ll_avatar_pig"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_pig"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/pig"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OinkJoy"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!---Mouse-->
+
+        <LinearLayout
+            android:id="@+id/ll_avatar_mouse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_mouse"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/mouse"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CheeseBelle"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!---Camel-->
+
+        <LinearLayout
+            android:id="@+id/ll_avatar_camel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iv_camel"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/camel"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ToffeeTongue"
+                android:textSize="13sp"
+                android:textColor="@color/Black"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+
+    </GridLayout>
+
+</LinearLayout>
