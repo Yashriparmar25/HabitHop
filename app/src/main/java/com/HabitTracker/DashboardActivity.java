@@ -19,9 +19,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,8 +47,7 @@ public class DashboardActivity extends AppCompatActivity {
     private RecyclerView recyclerHabits;
     private HabitAdapter habitAdapter;
     private DatabaseHelper dbHelper;
-
-    private String currentUserEmail = "";
+    private Button btnWriteMore;
 
     private final int[] stepViewIds = {
             R.id.profileImage,
@@ -75,6 +76,22 @@ public class DashboardActivity extends AppCompatActivity {
             "View your progress stats, edit your profile details, and manage your account here."
     };
 
+    private final ActivityResultLauncher<Intent> addHabitLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    loadHabits();
+                    updateProgress();
+                    updateStreak();
+                }
+            });
+
+    private final ActivityResultLauncher<Intent> journalLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                loadHabits();
+                updateProgress();
+                updateStreak();
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +99,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("HabitKit", MODE_PRIVATE);
         dbHelper = new DatabaseHelper(this);
-        currentUserEmail = prefs.getString("current_user_email", "");
 
         bindViews();
         loadUserData();
@@ -92,20 +108,14 @@ public class DashboardActivity extends AppCompatActivity {
         updateProgress();
         updateStreak();
 
-        if (!prefs.getBoolean("onboarding_done", false)) {
-            new Handler(Looper.getMainLooper()).postDelayed(
-                    this::startOnboarding, 800L
+        if (btnWriteMore != null) {
+            btnWriteMore.setOnClickListener(v ->
+                    journalLauncher.launch(new Intent(this, JournalActivity.class))
             );
         }
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            loadHabits();
-            updateProgress();
-            updateStreak();
+        if (!prefs.getBoolean("onboarding_done", false)) {
+            new Handler(Looper.getMainLooper()).postDelayed(this::startOnboarding, 800L);
         }
     }
 
@@ -133,22 +143,24 @@ public class DashboardActivity extends AppCompatActivity {
         dayFri = findViewById(R.id.dayFri);
         daySat = findViewById(R.id.daySat);
         daySun = findViewById(R.id.daySun);
+        btnWriteMore = findViewById(R.id.btnWriteMore);
     }
 
     private void loadHabits() {
-        List<Habit> habits = dbHelper.getAllHabitsList(currentUserEmail);
+        String email = prefs.getString("current_user_email", "");
+        List<Habit> habits = email.isEmpty() ? new ArrayList<>() : dbHelper.getAllHabitsList(email);
         habitAdapter.updateHabits(habits);
     }
 
     private void updateProgress() {
-        List<Habit> habits = dbHelper.getAllHabitsList(currentUserEmail);
-        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                .format(new java.util.Date());
+        String email = prefs.getString("current_user_email", "");
+        List<Habit> habits = email.isEmpty() ? new ArrayList<>() : dbHelper.getAllHabitsList(email);
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new java.util.Date());
 
         int total = habits.size();
         int done = 0;
         for (Habit h : habits) {
-            if (dbHelper.isHabitDoneToday(currentUserEmail, h.getId(), today)) done++;
+            if (dbHelper.isHabitDoneToday(email, h.getId(), today)) done++;
         }
 
         tvProgressCount.setText(done + "/" + total + " done");
@@ -157,46 +169,48 @@ public class DashboardActivity extends AppCompatActivity {
 
         String emoji, message;
         if (percent == 0) {
-            emoji = "😴"; message = "Wake up! Let's start your habits!";
+            emoji = "😴";
+            message = "Wake up! Let's start your habits!";
         } else if (percent <= 25) {
-            emoji = "😐"; message = "Just getting started...";
+            emoji = "😐";
+            message = "Just getting started...";
         } else if (percent <= 50) {
-            emoji = "🙂"; message = "Getting there, keep going!";
+            emoji = "🙂";
+            message = "Getting there, keep going!";
         } else if (percent <= 75) {
-            emoji = "😊"; message = "You're doing great!";
+            emoji = "😊";
+            message = "You're doing great!";
         } else if (percent < 100) {
-            emoji = "😄"; message = "Almost there, don't stop now!";
+            emoji = "😄";
+            message = "Almost there, don't stop now!";
         } else {
-            emoji = "🥳"; message = "All done! You're amazing!";
+            emoji = "🥳";
+            message = "All done! You're amazing!";
         }
 
         tvProgressEmoji.setText(emoji);
         tvProgressMessage.setText(message);
-        tvProgressEmoji.animate()
-                .scaleX(1.3f).scaleY(1.3f).setDuration(150)
-                .withEndAction(() ->
-                        tvProgressEmoji.animate()
-                                .scaleX(1f).scaleY(1f)
-                                .setDuration(100).start()
-                ).start();
     }
 
     private void updateStreak() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String today = sdf.format(Calendar.getInstance().getTime());
+        String email = prefs.getString("current_user_email", "");
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
 
-        List<Habit> habits = dbHelper.getAllHabitsList(currentUserEmail);
+        List<Habit> habits = email.isEmpty() ? new ArrayList<>() : dbHelper.getAllHabitsList(email);
         int total = habits.size();
         int done = 0;
+
         for (Habit h : habits) {
-            if (dbHelper.isHabitDoneToday(currentUserEmail, h.getId(), today)) done++;
+            if (dbHelper.isHabitDoneToday(email, h.getId(), today)) done++;
         }
 
         tvTasksDone.setText(String.valueOf(done));
         tvTasksDue.setText(String.valueOf(total - done));
 
         int streak = 0;
-        if (!habits.isEmpty()) streak = dbHelper.getStreak(currentUserEmail, habits.get(0).getId());
+        if (!habits.isEmpty() && !email.isEmpty()) {
+            streak = dbHelper.getStreak(email, habits.get(0).getId());
+        }
         tvStreakCount.setText(String.valueOf(streak));
 
         if (streak == 0) tvStreakMessage.setText("Start your streak today! 💪");
@@ -209,10 +223,10 @@ public class DashboardActivity extends AppCompatActivity {
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 
         for (int i = 0; i < 7; i++) {
-            String dateStr = sdf.format(cal.getTime());
+            String dateStr = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.getTime());
             boolean isToday = dateStr.equals(today);
             boolean isPast = cal.getTime().before(Calendar.getInstance().getTime()) && !isToday;
-            int status = dbHelper.getDailyCompletionStatus(currentUserEmail, dateStr);
+            int status = email.isEmpty() ? 0 : dbHelper.getDailyCompletionStatus(email, dateStr);
             TextView tv = dayViews[i];
 
             if (status == 2) {
@@ -244,19 +258,16 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void loadUserData() {
-        String name = dbHelper.getUserName(currentUserEmail);
+        String email = prefs.getString("current_user_email", "");
+        String name = !email.isEmpty() ? dbHelper.getUserName(email) : prefs.getString("name", "Friend");
         tvUserName.setText("Hi, " + name + " 👋");
 
         String avatarRes = prefs.getString("avatar_res_name", "");
         String avatarUri = prefs.getString("avatar_gallery_uri", "");
 
-        if (avatarUri != null && !avatarUri.isEmpty()) {
-            try {
-                profileImage.setImageURI(Uri.parse(avatarUri));
-            } catch (Exception e) {
-                profileImage.setImageResource(R.drawable.turtle);
-            }
-        } else if (avatarRes != null && !avatarRes.isEmpty()) {
+        if (!avatarUri.isEmpty()) {
+            profileImage.setImageURI(Uri.parse(avatarUri));
+        } else if (!avatarRes.isEmpty()) {
             int resId = getResources().getIdentifier(avatarRes, "drawable", getPackageName());
             if (resId != 0) profileImage.setImageResource(resId);
         }
@@ -273,22 +284,27 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void setupNavigation() {
-        navAdd.setOnClickListener(v ->
-                startActivityForResult(new Intent(this, AddHabitActivity.class), 100)
-        );
+        navHome.setOnClickListener(v -> {});
+
         navJournal.setOnClickListener(v ->
-                Toast.makeText(this, "Journal coming soon!", Toast.LENGTH_SHORT).show()
+                journalLauncher.launch(new Intent(this, JournalActivity.class))
         );
+
+        navAdd.setOnClickListener(v ->
+                addHabitLauncher.launch(new Intent(this, AddHabitActivity.class))
+        );
+
         navReminders.setOnClickListener(v ->
                 Toast.makeText(this, "Reminders coming soon!", Toast.LENGTH_SHORT).show()
         );
+
         navProfile.setOnClickListener(v ->
                 startActivity(new Intent(this, ProfileActivity.class))
         );
-        profileImage.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
-            startActivity(intent);
-        });
+
+        profileImage.setOnClickListener(v ->
+                startActivity(new Intent(this, ProfileActivity.class))
+        );
     }
 
     private void startOnboarding() {
@@ -339,9 +355,7 @@ public class DashboardActivity extends AppCompatActivity {
             TextView dot = new TextView(this);
             dot.setText("●");
             dot.setTextSize(10f);
-            dot.setTextColor(i == step
-                    ? Color.parseColor("#2D6A4F")
-                    : Color.parseColor("#CCCCCC"));
+            dot.setTextColor(i == step ? Color.parseColor("#2D6A4F") : Color.parseColor("#CCCCCC"));
             LinearLayout.LayoutParams dp = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT

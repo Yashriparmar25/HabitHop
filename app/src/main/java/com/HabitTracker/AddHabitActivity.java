@@ -157,7 +157,7 @@ public class AddHabitActivity extends AppCompatActivity {
 
             String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-            dbHelper.addHabit(currentUserEmail, name, desc, selectedCategory, selectedFrequency, today);
+            dbHelper.saveHabit(currentUserEmail, name, desc, selectedCategory, selectedFrequency, today);
 
             Toast.makeText(this, "Habit saved! Keep it up 🎯", Toast.LENGTH_SHORT).show();
             setResult(RESULT_OK);

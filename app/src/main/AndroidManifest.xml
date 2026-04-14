@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-    <!-- For habit reminders (notifications) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
-    <!-- For profile image (camera + gallery) -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="HabitKit"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/logo"
+        android:label="Habit Hop"
+        android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HabitTracker">
 
@@ -32,7 +32,6 @@
             </intent-filter>
         </receiver>
 
-        <!-- Login opens first -->
         <activity
             android:name=".LoginActivity"
             android:exported="true"
@@ -50,20 +49,31 @@
 
         <activity
             android:name=".AvatarPicker"
+            android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".WelcomeActivity" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="false" />
 
-        <activity android:name=".DashboardActivity"
+        <activity
+            android:name=".DashboardActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".AddHabitActivity"
+            android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".ProfileActivity" android:exported="false"/>
+        <activity
+            android:name=".JournalActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
 
     </application>
 

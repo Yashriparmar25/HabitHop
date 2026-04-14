@@ -19,10 +19,11 @@
 
         <ImageView
             android:id="@+id/iv_bear"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_bear"
-            android:layout_marginBottom="8dp"/>
+            android:layout_width="200dp"
+            android:layout_height="141dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/logo_text_foreground" />
 
         <TextView
             android:layout_width="wrap_content"

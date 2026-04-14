@@ -85,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
             String dbName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_NAME));
             String birthday = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_BIRTHDAY));
             String gender = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_GENDER));
-            String goal = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_GOAL));
+            String goalValue = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_GOAL));
 
             String displayName = !prefsName.isEmpty() ? prefsName : (dbName != null ? dbName : "Friend");
 
@@ -93,7 +93,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvProfileGoal.setText("Hi, " + displayName + " 👋");
             tvBirthday.setText(birthday != null && !birthday.isEmpty() ? birthday : "—");
             tvGender.setText(gender != null && !gender.isEmpty() ? gender : "—");
-            tvGoal.setText(goal != null && !goal.isEmpty() ? goal : "—");
+            tvGoal.setText(goalValue != null && !goalValue.isEmpty() ? goalValue : "—");
 
             cursor.close();
         } else {
@@ -103,6 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvBirthday.setText("—");
             tvGender.setText("—");
             tvGoal.setText("—");
+            if (cursor != null) cursor.close();
         }
 
         String savedUri = prefs.getString("avatar_gallery_uri", "");
@@ -140,6 +141,7 @@ public class ProfileActivity extends AppCompatActivity {
         for (Habit h : habits) {
             if (dbHelper.isHabitDoneToday(currentUserEmail, h.getId(), today)) done++;
         }
+
         if (!habits.isEmpty()) {
             streak = dbHelper.getStreak(currentUserEmail, habits.get(0).getId());
         }

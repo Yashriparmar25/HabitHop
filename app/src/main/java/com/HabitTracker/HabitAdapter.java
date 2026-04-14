@@ -12,7 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHolder> {
 
@@ -26,7 +29,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         void onHabitUpdated();
     }
 
-    private OnHabitUpdateListener listener;
+    private final OnHabitUpdateListener listener;
 
     public HabitAdapter(Context context, List<Habit> habitList, OnHabitUpdateListener listener) {
         this.context = context;
@@ -43,6 +46,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         this.dbHelper = new DatabaseHelper(context);
         this.prefs = context.getSharedPreferences("HabitKit", Context.MODE_PRIVATE);
         this.currentUserEmail = prefs.getString("current_user_email", "");
+        this.listener = null;
     }
 
     public void updateHabits(List<Habit> newHabits) {
@@ -65,9 +69,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         holder.tvCategory.setText(habit.getCategory());
         holder.tvFrequency.setText(habit.getFrequency());
 
-        String today = new java.text.SimpleDateFormat(
-                "yyyy-MM-dd", java.util.Locale.getDefault()
-        ).format(new java.util.Date());
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
         int streak = 0;
         if (currentUserEmail != null && !currentUserEmail.isEmpty()) {
@@ -106,8 +108,9 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
             if (currentUserEmail == null || currentUserEmail.isEmpty()) return;
 
             boolean currentlyDone = dbHelper.isHabitDoneToday(currentUserEmail, habit.getId(), today);
+
             if (!currentlyDone) {
-                dbHelper.logHabit(currentUserEmail, habit.getId(), today, true);
+                dbHelper.updateHabitLog(currentUserEmail, habit.getId(), today, true);
                 setDoneState(holder, true);
             } else {
                 dbHelper.unlogHabit(currentUserEmail, habit.getId(), today);
@@ -149,7 +152,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
 
     @Override
     public int getItemCount() {
-        return habitList.size();
+        return habitList != null ? habitList.size() : 0;
     }
 
     static class HabitViewHolder extends RecyclerView.ViewHolder {
