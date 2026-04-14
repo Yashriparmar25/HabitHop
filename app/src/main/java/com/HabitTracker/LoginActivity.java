@@ -2,6 +2,7 @@ package com.HabitTracker;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +22,9 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences prefs;
     boolean isLoginMode = true;
 
+    private DatabaseHelper dbHelper;
+
     private static final String PREFS_NAME = "HabitKit";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_PASSWORD = "password";
-    private static final String KEY_NAME = "name";
     private static final String KEY_CURRENT_USER_EMAIL = "current_user_email";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
     private static final String KEY_PROFILE_SETUP_DONE = "profile_setup_done";
@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        dbHelper = new DatabaseHelper(this);
 
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
@@ -94,15 +95,14 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (isLoginMode) {
-            String savedEmail = prefs.getString(KEY_EMAIL, "");
-            String savedPassword = prefs.getString(KEY_PASSWORD, "");
+            String savedPassword = dbHelper.getSavedPassword(email);
 
-            if (email.equals(savedEmail) && password.equals(savedPassword)) {
+            if (savedPassword != null && !savedPassword.isEmpty() && password.equals(savedPassword)) {
                 prefs.edit()
                         .putString(KEY_CURRENT_USER_EMAIL, email)
                         .putBoolean(KEY_IS_LOGGED_IN, true)
                         .apply();
-                loginSuccess();
+                loginSuccess(true);
             } else {
                 showError("Incorrect email or password");
             }
@@ -113,29 +113,29 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
+            dbHelper.saveUser(email, name, "", "", "", "", "");
+            dbHelper.saveUserCredentials(email, password);
+
             prefs.edit()
-                    .putString(KEY_EMAIL, email)
-                    .putString(KEY_PASSWORD, password)
-                    .putString(KEY_NAME, name)
                     .putString(KEY_CURRENT_USER_EMAIL, email)
                     .putBoolean(KEY_IS_LOGGED_IN, true)
                     .apply();
 
-            loginSuccess();
+            loginSuccess(false);
         }
     }
 
-    void loginSuccess() {
+    void loginSuccess(boolean isLogin) {
         prefs.edit().putBoolean(KEY_IS_LOGGED_IN, true).apply();
 
-        if (!isLoginMode) {
-            startActivity(new Intent(this, ProfileSetupActivity.class));
-        } else {
+        if (isLogin) {
             if (prefs.getBoolean(KEY_PROFILE_SETUP_DONE, false)) {
                 goToMain();
             } else {
-                startActivity(new Intent(this, ProfileSetupActivity.class));
+                startActivity(new Intent(this, DashboardActivity.class));
             }
+        } else {
+            startActivity(new Intent(this, ProfileSetupActivity.class));
         }
         finish();
     }

@@ -12,11 +12,12 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "HabitTracker.db";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3;
 
     public static final String TABLE_USERS = "users";
     public static final String COL_USER_ID = "id";
     public static final String COL_USER_EMAIL = "user_email";
+    public static final String COL_USER_PASSWORD = "password";
     public static final String COL_NAME = "name";
     public static final String COL_BIRTHDAY = "birthday";
     public static final String COL_GENDER = "gender";
@@ -56,6 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_USERS + " ("
                 + COL_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_USER_EMAIL + " TEXT UNIQUE, "
+                + COL_USER_PASSWORD + " TEXT, "
                 + COL_NAME + " TEXT, "
                 + COL_BIRTHDAY + " TEXT, "
                 + COL_GENDER + " TEXT, "
@@ -114,6 +116,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.insert(TABLE_USERS, null, cv);
         }
         db.close();
+    }
+
+    public void saveUserCredentials(String email, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_USER_EMAIL, email);
+        cv.put(COL_USER_PASSWORD, password);
+
+        int updated = db.update(TABLE_USERS, cv, COL_USER_EMAIL + "=?", new String[]{email});
+        if (updated == 0) {
+            db.insert(TABLE_USERS, null, cv);
+        }
+        db.close();
+    }
+
+    public String getSavedPassword(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String password = "";
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COL_USER_PASSWORD + " FROM " + TABLE_USERS +
+                        " WHERE " + COL_USER_EMAIL + "=? LIMIT 1",
+                new String[]{email}
+        );
+        if (cursor.moveToFirst()) {
+            password = cursor.getString(0);
+        }
+        cursor.close();
+        db.close();
+        return password;
     }
 
     public String getUserName(String email) {
