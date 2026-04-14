@@ -278,6 +278,11 @@ public class DashboardActivity extends AppCompatActivity {
         navProfile.setOnClickListener(v ->
                 startActivity(new Intent(this, ProfileActivity.class))
         );
+
+        profileImage.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
     }
 
     // ════════════════════════════════════════════════════════════════
