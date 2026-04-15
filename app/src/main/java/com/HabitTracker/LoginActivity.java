@@ -2,7 +2,6 @@ package com.HabitTracker;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -102,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                         .putString(KEY_CURRENT_USER_EMAIL, email)
                         .putBoolean(KEY_IS_LOGGED_IN, true)
                         .apply();
-                loginSuccess(true);
+                goToMain();
             } else {
                 showError("Incorrect email or password");
             }
@@ -119,25 +118,12 @@ public class LoginActivity extends AppCompatActivity {
             prefs.edit()
                     .putString(KEY_CURRENT_USER_EMAIL, email)
                     .putBoolean(KEY_IS_LOGGED_IN, true)
+                    .putBoolean(KEY_PROFILE_SETUP_DONE, false)
                     .apply();
 
-            loginSuccess(false);
-        }
-    }
-
-    void loginSuccess(boolean isLogin) {
-        prefs.edit().putBoolean(KEY_IS_LOGGED_IN, true).apply();
-
-        if (isLogin) {
-            if (prefs.getBoolean(KEY_PROFILE_SETUP_DONE, false)) {
-                goToMain();
-            } else {
-                startActivity(new Intent(this, DashboardActivity.class));
-            }
-        } else {
             startActivity(new Intent(this, ProfileSetupActivity.class));
+            finish();
         }
-        finish();
     }
 
     void goToMain() {

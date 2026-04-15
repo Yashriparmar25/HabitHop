@@ -214,7 +214,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
         ).format(new java.util.Date());
 
         for (int i = 0; i < habitNames.size(); i++) {
-            db.addHabit(currentUserEmail, habitNames.get(i), habitDescs.get(i), "Health", "Daily", today);
+            db.saveHabit(currentUserEmail, habitNames.get(i), habitDescs.get(i), "Health", "Daily", today);
         }
 
         Intent intent = new Intent(this, WelcomeActivity.class);

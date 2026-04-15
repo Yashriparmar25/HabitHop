@@ -24,10 +24,10 @@ public class RewardManager {
     private boolean isShowingState2 = false;
 
     private String[] motivationalMessages = {
-            "You are doing amazing. Keep Habithopping",
-            "Small steps daily lead to big changes. Great job",
-            "Habits made simple, results made powerful. Well done",
-            "Consistency is key, and you just turned the lock"
+            "You're doing amazing! Keep Habithopping! 🐰✨",
+            "Small steps daily lead to big changes. Great job!",
+            "Habits made simple, results made powerful. Well done!",
+            "Consistency is key, and you just turned the lock! 🔑"
     };
 
     public RewardManager(Context context) {
@@ -85,6 +85,6 @@ public class RewardManager {
 
         layoutState2.setVisibility(View.VISIBLE);
         layoutState2.startAnimation(popAnimation);
-        btnAction.setText("Got it");
+        btnAction.setText("Got it!");
     }
 }
