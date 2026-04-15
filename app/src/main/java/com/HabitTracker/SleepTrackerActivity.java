@@ -4,12 +4,12 @@ import android.app.TimePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +31,7 @@ public class SleepTrackerActivity extends AppCompatActivity {
     private RecyclerView recyclerSleepHistory;
 
     private SharedPreferences prefs;
+    private String userEmail = "";
 
     private boolean sleepRunning = false;
     private int bedtimeHour = -1, bedtimeMinute = -1;
@@ -41,6 +42,7 @@ public class SleepTrackerActivity extends AppCompatActivity {
     private SleepHistoryAdapter historyAdapter;
 
     private static final String PREFS = "HabitKit";
+
     private static final String KEY_SLEEP_RUNNING = "sleep_running";
     private static final String KEY_BED_H = "sleep_bed_h";
     private static final String KEY_BED_M = "sleep_bed_m";
@@ -61,6 +63,7 @@ public class SleepTrackerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sleep_tracker);
 
         prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+        userEmail = prefs.getString("current_user_email", "");
 
         bindViews();
         setupHistory();
@@ -104,9 +107,13 @@ public class SleepTrackerActivity extends AppCompatActivity {
 
         btnSaveEntry.setOnClickListener(v -> {
             String note = etSleepNote.getText().toString().trim();
-            prefs.edit().putString(KEY_NOTE, note).apply();
+            prefs.edit().putString(key(KEY_NOTE), note).apply();
             Toast.makeText(this, "Sleep note saved", Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private String key(String base) {
+        return base + "_" + userEmail;
     }
 
     private void bindViews() {
@@ -139,24 +146,24 @@ public class SleepTrackerActivity extends AppCompatActivity {
     }
 
     private void loadState() {
-        sleepRunning = prefs.getBoolean(KEY_SLEEP_RUNNING, false);
-        bedtimeHour = prefs.getInt(KEY_BED_H, -1);
-        bedtimeMinute = prefs.getInt(KEY_BED_M, -1);
-        wakeHour = prefs.getInt(KEY_WAKE_H, -1);
-        wakeMinute = prefs.getInt(KEY_WAKE_M, -1);
-        selectedQuality = prefs.getString(KEY_QUALITY, "Good");
-        etSleepNote.setText(prefs.getString(KEY_NOTE, ""));
+        sleepRunning = prefs.getBoolean(key(KEY_SLEEP_RUNNING), false);
+        bedtimeHour = prefs.getInt(key(KEY_BED_H), -1);
+        bedtimeMinute = prefs.getInt(key(KEY_BED_M), -1);
+        wakeHour = prefs.getInt(key(KEY_WAKE_H), -1);
+        wakeMinute = prefs.getInt(key(KEY_WAKE_M), -1);
+        selectedQuality = prefs.getString(key(KEY_QUALITY), "Good");
+        etSleepNote.setText(prefs.getString(key(KEY_NOTE), ""));
         loadHistory();
     }
 
     private void saveState() {
         prefs.edit()
-                .putBoolean(KEY_SLEEP_RUNNING, sleepRunning)
-                .putInt(KEY_BED_H, bedtimeHour)
-                .putInt(KEY_BED_M, bedtimeMinute)
-                .putInt(KEY_WAKE_H, wakeHour)
-                .putInt(KEY_WAKE_M, wakeMinute)
-                .putString(KEY_QUALITY, selectedQuality)
+                .putBoolean(key(KEY_SLEEP_RUNNING), sleepRunning)
+                .putInt(key(KEY_BED_H), bedtimeHour)
+                .putInt(key(KEY_BED_M), bedtimeMinute)
+                .putInt(key(KEY_WAKE_H), wakeHour)
+                .putInt(key(KEY_WAKE_M), wakeMinute)
+                .putString(key(KEY_QUALITY), selectedQuality)
                 .apply();
     }
 
@@ -265,11 +272,11 @@ public class SleepTrackerActivity extends AppCompatActivity {
 
     private void saveLatestSummary(String date, String duration, String quality, String bed, String wake) {
         prefs.edit()
-                .putString(KEY_LAST_DATE, date)
-                .putString(KEY_LAST_DURATION, duration)
-                .putString(KEY_LAST_QUALITY, quality)
-                .putString(KEY_LAST_BED, bed)
-                .putString(KEY_LAST_WAKE, wake)
+                .putString(key(KEY_LAST_DATE), date)
+                .putString(key(KEY_LAST_DURATION), duration)
+                .putString(key(KEY_LAST_QUALITY), quality)
+                .putString(key(KEY_LAST_BED), bed)
+                .putString(key(KEY_LAST_WAKE), wake)
                 .apply();
     }
 
@@ -284,12 +291,12 @@ public class SleepTrackerActivity extends AppCompatActivity {
                     .append(e.note == null ? "" : e.note.replace("||", " "))
                     .append("\n");
         }
-        prefs.edit().putString(KEY_HISTORY, sb.toString()).apply();
+        prefs.edit().putString(key(KEY_HISTORY), sb.toString()).apply();
     }
 
     private void loadHistory() {
         history.clear();
-        String raw = prefs.getString(KEY_HISTORY, "");
+        String raw = prefs.getString(key(KEY_HISTORY), "");
         if (!TextUtils.isEmpty(raw)) {
             String[] lines = raw.split("\n");
             for (String line : lines) {

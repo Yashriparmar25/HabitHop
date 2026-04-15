@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +26,15 @@ public class MoodTrackerActivity extends AppCompatActivity {
     private RecyclerView recyclerMoodHistory;
 
     private SharedPreferences prefs;
+    private String userEmail = "";
+
     private String selectedMood = "";
     private int selectedMoodScore = 0;
     private final List<MoodEntry> moodHistory = new ArrayList<>();
     private MoodHistoryAdapter adapter;
 
     private static final String PREFS = "HabitKit";
+
     private static final String KEY_HISTORY = "mood_history";
     private static final String KEY_LAST_MOOD = "latest_mood_name";
     private static final String KEY_LAST_NOTE = "latest_mood_note";
@@ -45,6 +47,7 @@ public class MoodTrackerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mood_tracker);
 
         prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+        userEmail = prefs.getString("current_user_email", "");
 
         bindViews();
         setupHistory();
@@ -58,6 +61,10 @@ public class MoodTrackerActivity extends AppCompatActivity {
         btnMoodSad.setOnClickListener(v -> chooseMood("Sad", 20));
 
         btnSaveMood.setOnClickListener(v -> saveMood());
+    }
+
+    private String key(String base) {
+        return base + "_" + userEmail;
     }
 
     private void bindViews() {
@@ -81,9 +88,9 @@ public class MoodTrackerActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        selectedMood = prefs.getString(KEY_LAST_MOOD, "");
-        selectedMoodScore = prefs.getInt(KEY_LAST_SCORE, 0);
-        etMoodNote.setText(prefs.getString(KEY_LAST_NOTE, ""));
+        selectedMood = prefs.getString(key(KEY_LAST_MOOD), "");
+        selectedMoodScore = prefs.getInt(key(KEY_LAST_SCORE), 0);
+        etMoodNote.setText(prefs.getString(key(KEY_LAST_NOTE), ""));
         loadHistory();
     }
 
@@ -134,10 +141,10 @@ public class MoodTrackerActivity extends AppCompatActivity {
 
         saveHistory();
         prefs.edit()
-                .putString(KEY_LAST_MOOD, selectedMood)
-                .putString(KEY_LAST_NOTE, note)
-                .putInt(KEY_LAST_SCORE, selectedMoodScore)
-                .putString(KEY_LAST_DATE, date)
+                .putString(key(KEY_LAST_MOOD), selectedMood)
+                .putString(key(KEY_LAST_NOTE), note)
+                .putInt(key(KEY_LAST_SCORE), selectedMoodScore)
+                .putString(key(KEY_LAST_DATE), date)
                 .apply();
 
         tvMoodStatus.setText("Mood saved");
@@ -153,19 +160,22 @@ public class MoodTrackerActivity extends AppCompatActivity {
                     .append(e.note == null ? "" : e.note.replace("||", " "))
                     .append("\n");
         }
-        prefs.edit().putString(KEY_HISTORY, sb.toString()).apply();
+        prefs.edit().putString(key(KEY_HISTORY), sb.toString()).apply();
     }
 
     private void loadHistory() {
         moodHistory.clear();
-        String raw = prefs.getString(KEY_HISTORY, "");
+        String raw = prefs.getString(key(KEY_HISTORY), "");
         if (!TextUtils.isEmpty(raw)) {
             String[] lines = raw.split("\n");
             for (String line : lines) {
                 if (TextUtils.isEmpty(line)) continue;
                 String[] p = line.split("\\|\\|", -1);
                 if (p.length >= 4) {
-                    moodHistory.add(new MoodEntry(p[0], p[1], Integer.parseInt(p[2]), p[3]));
+                    try {
+                        moodHistory.add(new MoodEntry(p[0], p[1], Integer.parseInt(p[2]), p[3]));
+                    } catch (Exception ignored) {
+                    }
                 }
             }
         }

@@ -92,6 +92,12 @@ public class DashboardActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
 
         bindViews();
+
+        profileImage.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
         loadUserData();
         setupNavigation();
         setupSleepCard();
@@ -113,12 +119,17 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        currentUserEmail = prefs.getString("current_user_email", "");
         loadUserData();
         loadHabits();
         updateProgress();
         updateStreak();
         updateSleepCard();
         updateMoodCard();
+    }
+
+    private String key(String base) {
+        return base + "_" + currentUserEmail;
     }
 
     private void bindViews() {
@@ -182,11 +193,11 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void updateSleepCard() {
-        String lastDate = prefs.getString("sleep_last_date", "");
-        String lastDuration = prefs.getString("sleep_last_duration", "");
-        String lastQuality = prefs.getString("sleep_last_quality", "");
-        String lastBed = prefs.getString("sleep_last_bed", "");
-        String lastWake = prefs.getString("sleep_last_wake", "");
+        String lastDate = prefs.getString(key("sleep_last_date"), "");
+        String lastDuration = prefs.getString(key("sleep_last_duration"), "");
+        String lastQuality = prefs.getString(key("sleep_last_quality"), "");
+        String lastBed = prefs.getString(key("sleep_last_bed"), "");
+        String lastWake = prefs.getString(key("sleep_last_wake"), "");
 
         boolean hasSleepRecord = !lastDate.isEmpty() || !lastDuration.isEmpty();
 
@@ -198,8 +209,10 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         tvSleepCardTitle.setText("Last sleep");
-        tvSleepCardSubtitle.setText((lastDuration.isEmpty() ? "Recent sleep session" : lastDuration) +
-                (lastQuality.isEmpty() ? "" : " • " + lastQuality));
+
+        String subtitle = lastDuration.isEmpty() ? "Recent sleep session" : lastDuration;
+        if (!lastQuality.isEmpty()) subtitle += " • " + lastQuality;
+        tvSleepCardSubtitle.setText(subtitle);
 
         StringBuilder meta = new StringBuilder();
         if (!lastDate.isEmpty()) meta.append(lastDate);
@@ -211,8 +224,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void updateMoodCard() {
-        String mood = prefs.getString("latest_mood_name", "");
-        String moodNote = prefs.getString("latest_mood_note", "");
+        String mood = prefs.getString(key("latest_mood_name"), "");
+        String moodNote = prefs.getString(key("latest_mood_note"), "");
 
         if (mood == null || mood.isEmpty()) {
             tvMoodCardTitle.setText("Track mood");
@@ -221,6 +234,7 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         tvMoodCardTitle.setText(mood);
+
         if (moodNote == null || moodNote.isEmpty()) {
             tvMoodCardSubtitle.setText("Latest mood entry");
         } else {

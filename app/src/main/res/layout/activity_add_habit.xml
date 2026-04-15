@@ -31,14 +31,14 @@
                 android:contentDescription="Back"
                 android:padding="8dp"
                 android:src="@android:drawable/ic_menu_close_clear_cancel"
-                android:tint="#FFFFFF" />
+                app:tint="#FFFFFF" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:text="New Habit"
-                android:textColor="@color/moss_green"
+                android:textColor="#FFFFFF"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="Build something gentle, one day at a time"
-                android:textColor="@color/moss_green"
+                android:textColor="#FFFFFF"
                 android:textSize="13sp" />
         </LinearLayout>
 

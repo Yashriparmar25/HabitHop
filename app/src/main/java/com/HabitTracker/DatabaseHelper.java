@@ -12,19 +12,16 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "HabitTracker.db";
-    private static final int DB_VERSION = 7;
+    private static final int DB_VERSION = 8;
 
-    // Table Names
     public static final String TABLE_USERS = "users";
     public static final String TABLE_HABITS = "habits";
     public static final String TABLE_LOGS = "habit_logs";
     public static final String TABLE_JOURNAL = "journal";
 
-    // Common Columns
     public static final String COL_ID = "id";
     public static final String COL_USER_EMAIL = "user_email";
 
-    // User Table Columns
     public static final String COL_USER_PASSWORD = "password";
     public static final String COL_NAME = "name";
     public static final String COL_BIRTHDAY = "birthday";
@@ -33,19 +30,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_AVATAR_RES = "avatar_res";
     public static final String COL_AVATAR_URI = "avatar_uri";
 
-    // Habit Table Columns
     public static final String COL_HABIT_NAME = "habit_name";
     public static final String COL_HABIT_DESC = "habit_desc";
     public static final String COL_CATEGORY = "category";
     public static final String COL_FREQUENCY = "frequency";
     public static final String COL_CREATED_AT = "created_at";
 
-    // Log Table Columns
     public static final String COL_LOG_HABIT = "habit_id";
     public static final String COL_LOG_DATE = "log_date";
     public static final String COL_LOG_DONE = "is_done";
 
-    // Journal Table Columns
     public static final String COL_J_DATE = "entry_date";
     public static final String COL_J_TIME = "entry_time";
     public static final String COL_J_TEXT = "entry_text";
@@ -102,8 +96,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // --- USER MANAGEMENT ---
-
     public void saveUser(String email, String name, String birthday, String gender, String goal, String avatarRes, String avatarUri) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -115,6 +107,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_AVATAR_RES, avatarRes);
         values.put(COL_AVATAR_URI, avatarUri);
         db.insertWithOnConflict(TABLE_USERS, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+    }
+
+    public int updateUserProfile(String email, String name, String birthday, String gender, String goal, String avatarRes, String avatarUri) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_NAME, name);
+        values.put(COL_BIRTHDAY, birthday);
+        values.put(COL_GENDER, gender);
+        values.put(COL_GOAL, goal);
+        values.put(COL_AVATAR_RES, avatarRes);
+        values.put(COL_AVATAR_URI, avatarUri);
+        return db.update(TABLE_USERS, values, COL_USER_EMAIL + "=?", new String[]{email});
+    }
+
+    public boolean userExists(String email) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT 1 FROM " + TABLE_USERS + " WHERE " + COL_USER_EMAIL + "=? LIMIT 1", new String[]{email});
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        return exists;
     }
 
     public void saveUserCredentials(String email, String password) {
@@ -132,8 +144,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return name;
     }
-
-    // --- HABIT MANAGEMENT ---
 
     public long saveHabit(String userEmail, String habitName, String habitDesc, String category, String frequency, String createdAt) {
         SQLiteDatabase db = getWritableDatabase();
@@ -166,8 +176,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return habits;
     }
-
-    // --- PROGRESS LOGGING ---
 
     public void updateHabitLog(String userEmail, int habitId, String date, boolean done) {
         SQLiteDatabase db = getWritableDatabase();
@@ -224,8 +232,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return streak;
     }
 
-    // --- JOURNAL MANAGEMENT ---
-
     public void saveJournal(String userEmail, String entryDate, String entryTime, String text, String mood) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -266,6 +272,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getUser(String currentUserEmail) {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COL_USER_EMAIL + "=?", new String[]{currentUserEmail});
-
     }
 }

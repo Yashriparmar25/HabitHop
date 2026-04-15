@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.database.Cursor;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -44,6 +45,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
     ArrayList<String> habitDescs = new ArrayList<>();
 
     private String currentUserEmail = "";
+    private DatabaseHelper dbHelper;
 
     private final ActivityResultLauncher<Intent> avatarPickerLauncher =
             registerForActivityResult(
@@ -89,6 +91,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("HabitKit", MODE_PRIVATE);
         currentUserEmail = prefs.getString("current_user_email", "");
+        dbHelper = new DatabaseHelper(this);
 
         etFullname = findViewById(R.id.et_fullname);
         etBirthday = findViewById(R.id.et_birthday);
@@ -103,6 +106,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
         tvPickPhoto = findViewById(R.id.tv_pick_photo);
         chipGroupGender = findViewById(R.id.chip_group_gender);
         chipGroupGoal = findViewById(R.id.chip_group_goal);
+
+        loadExistingProfile();
 
         View.OnClickListener openAvatarPicker = v -> {
             Intent intent = new Intent(this, AvatarPicker.class);
@@ -175,6 +180,39 @@ public class ProfileSetupActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(v -> saveAndContinue());
     }
 
+    private void loadExistingProfile() {
+        if (currentUserEmail == null || currentUserEmail.isEmpty()) return;
+
+        Cursor cursor = dbHelper.getUser(currentUserEmail);
+        if (cursor != null && cursor.moveToFirst()) {
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_NAME));
+            String birthday = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_BIRTHDAY));
+            String gender = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_GENDER));
+            String goal = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_GOAL));
+            String avatarRes = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_AVATAR_RES));
+            String avatarUri = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_AVATAR_URI));
+
+            if (name != null) etFullname.setText(name);
+            if (birthday != null) etBirthday.setText(birthday);
+
+            selectedGender = gender != null ? gender : "";
+            selectedGoal = goal != null ? goal : "";
+            pickedAvatarResName = avatarRes != null ? avatarRes : "";
+            pickedGalleryUri = avatarUri != null ? avatarUri : "";
+
+            if (!pickedGalleryUri.isEmpty()) {
+                try {
+                    ivProfilePhoto.setImageURI(Uri.parse(pickedGalleryUri));
+                } catch (Exception ignored) {
+                }
+            } else if (!pickedAvatarResName.isEmpty()) {
+                int resId = getResources().getIdentifier(pickedAvatarResName, "drawable", getPackageName());
+                if (resId != 0) ivProfilePhoto.setImageResource(resId);
+            }
+        }
+        if (cursor != null) cursor.close();
+    }
+
     void saveAndContinue() {
         String fullname = etFullname.getText().toString().trim();
         String birthday = etBirthday.getText() != null ? etBirthday.getText().toString().trim() : "";
@@ -198,23 +236,35 @@ public class ProfileSetupActivity extends AppCompatActivity {
         editor.putBoolean("is_logged_in", true);
         editor.apply();
 
-        DatabaseHelper db = new DatabaseHelper(this);
-        db.saveUser(
-                currentUserEmail,
-                fullname,
-                birthday,
-                selectedGender,
-                selectedGoal,
-                pickedAvatarResName,
-                pickedGalleryUri
-        );
+        boolean exists = dbHelper.userExists(currentUserEmail);
+        if (exists) {
+            dbHelper.updateUserProfile(
+                    currentUserEmail,
+                    fullname,
+                    birthday,
+                    selectedGender,
+                    selectedGoal,
+                    pickedAvatarResName,
+                    pickedGalleryUri
+            );
+        } else {
+            dbHelper.saveUser(
+                    currentUserEmail,
+                    fullname,
+                    birthday,
+                    selectedGender,
+                    selectedGoal,
+                    pickedAvatarResName,
+                    pickedGalleryUri
+            );
+        }
 
         String today = new java.text.SimpleDateFormat(
                 "yyyy-MM-dd", java.util.Locale.getDefault()
         ).format(new java.util.Date());
 
         for (int i = 0; i < habitNames.size(); i++) {
-            db.saveHabit(currentUserEmail, habitNames.get(i), habitDescs.get(i), "Health", "Daily", today);
+            dbHelper.saveHabit(currentUserEmail, habitNames.get(i), habitDescs.get(i), "Health", "Daily", today);
         }
 
         Intent intent = new Intent(this, WelcomeActivity.class);
