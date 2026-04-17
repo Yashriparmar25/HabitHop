@@ -31,7 +31,8 @@ public class AddHabitActivity extends AppCompatActivity {
     private static final String COLOR_MIND = "#7B5EA7";
     private static final String COLOR_SOUL = "#C26D8A";
     private static final String COLOR_WORK = "#D4813A";
-    private static final String COLOR_UNSEL = "#F0EBE6";
+    private static final String COLOR_DAILY = "#974472";
+    private static final String COLOR_WEEKLY = "#CC8787";
     private static final String COLOR_TEXT_DARK = "#1F1A17";
     private static final String COLOR_TEXT_WHITE = "#FFFFFF";
 
@@ -54,7 +55,7 @@ public class AddHabitActivity extends AppCompatActivity {
         setupSaveButton();
 
         selectCategory(cardHealth, "Health", COLOR_HEALTH);
-        selectFrequency(cardDaily, "Daily");
+        selectFrequency(cardDaily, "Daily", COLOR_DAILY);  // pass color here
 
         findViewById(R.id.btn_back).setOnClickListener(v -> finish());
     }
@@ -107,17 +108,16 @@ public class AddHabitActivity extends AppCompatActivity {
     }
 
     private void setupFrequencyCards() {
-        cardDaily.setOnClickListener(v -> selectFrequency(cardDaily, "Daily"));
-        cardWeekly.setOnClickListener(v -> selectFrequency(cardWeekly, "Weekly"));
+        cardDaily.setOnClickListener(v -> selectFrequency(cardDaily, "Daily", COLOR_DAILY));
+        cardWeekly.setOnClickListener(v -> selectFrequency(cardWeekly, "Weekly", COLOR_WEEKLY));
     }
 
-    private void selectFrequency(LinearLayout selected, String freq) {
-        cardDaily.setBackgroundResource(R.drawable.card_category_unselected);
-        cardWeekly.setBackgroundResource(R.drawable.card_category_unselected);
-        updateCardTextColor(cardDaily, COLOR_TEXT_DARK);
-        updateCardTextColor(cardWeekly, COLOR_TEXT_DARK);
+    // ✅ Fixed: now accepts a color parameter instead of hardcoding green
+    private void selectFrequency(LinearLayout selected, String freq, String color) {
+        resetFrequencyCard(cardDaily);
+        resetFrequencyCard(cardWeekly);
 
-        selected.setBackgroundColor(Color.parseColor("#4A7C59"));
+        selected.setBackgroundColor(Color.parseColor(color));
         updateCardTextColor(selected, COLOR_TEXT_WHITE);
 
         selected.animate()
@@ -129,6 +129,12 @@ public class AddHabitActivity extends AppCompatActivity {
                 ).start();
 
         selectedFrequency = freq;
+    }
+
+    // ✅ Added: mirrors resetCategoryCard for frequency cards
+    private void resetFrequencyCard(LinearLayout card) {
+        card.setBackgroundResource(R.drawable.card_category_unselected);
+        updateCardTextColor(card, COLOR_TEXT_DARK);
     }
 
     private void updateCardTextColor(LinearLayout card, String colorHex) {
