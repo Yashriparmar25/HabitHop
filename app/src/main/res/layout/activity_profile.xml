@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="Yashri"
+                    android:text="User"
                     android:textColor="#1F1A17"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -282,19 +282,41 @@
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btnLogout"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/card_soft_white"
-                android:text="@string/logout"
-                android:textAllCaps="false"
-                android:textColor="@color/Pastel_Pink"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btnLogout"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/card_soft_white"
+                    android:text="@string/logout"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Pastel_Pink"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnDeleteAccount"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/card_rose_quartz"
+                    app:backgroundTint="@null"
+                    android:text="Delete Account"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

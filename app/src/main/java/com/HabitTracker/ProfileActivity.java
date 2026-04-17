@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.text.TextUtils;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +33,8 @@ public class ProfileActivity extends AppCompatActivity {
     private String currentUserEmail = "";
 
     private LinearLayout navHome, navJournal, navAdd, navReminders, navProfile;
+    private Button btnDeleteAccount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,16 @@ public class ProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+        });
+        btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
+
+        btnDeleteAccount.setOnClickListener(v -> {
+            new androidx.appcompat.app.AlertDialog.Builder(ProfileActivity.this)
+                    .setTitle("Delete account")
+                    .setMessage("This will permanently delete your account, habits, logs, and journal entries. Continue?")
+                    .setPositiveButton("Delete", (dialog, which) -> deleteAccount())
+                    .setNegativeButton("Cancel", null)
+                    .show();
         });
     }
 
@@ -221,5 +235,19 @@ public class ProfileActivity extends AppCompatActivity {
         tvTotalHabits.setText(String.valueOf(total));
         tvProfileStreak.setText(streak + "🔥");
         tvDoneToday.setText(done + "✅");
+    }
+    private void deleteAccount() {
+        if (TextUtils.isEmpty(currentUserEmail)) return;
+
+        dbHelper.deleteUserAccount(currentUserEmail);
+
+        prefs.edit().clear().apply();
+
+        Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

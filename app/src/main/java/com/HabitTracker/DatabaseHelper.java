@@ -349,4 +349,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COL_USER_EMAIL + "=?", new String[]{currentUserEmail});
     }
+    public void deleteUserAccount(String userEmail) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete(TABLE_LOGS, COL_USER_EMAIL + "=?", new String[]{userEmail});
+        db.delete(TABLE_JOURNAL, COL_USER_EMAIL + "=?", new String[]{userEmail});
+        db.delete(TABLE_HABITS, COL_USER_EMAIL + "=?", new String[]{userEmail});
+        db.delete(TABLE_USERS, COL_USER_EMAIL + "=?", new String[]{userEmail});
+    }
 }
