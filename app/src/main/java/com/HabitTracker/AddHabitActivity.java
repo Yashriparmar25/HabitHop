@@ -26,7 +26,7 @@ public class AddHabitActivity extends AppCompatActivity {
     private String selectedCategory = "Health";
     private String selectedFrequency = "Daily";
 
-    private static final String COLOR_HEALTH = "#4A7C59";
+    private static final String COLOR_HEALTH = "#C1DBE8";
     private static final String COLOR_STUDY = "#4A6FA5";
     private static final String COLOR_MIND = "#7B5EA7";
     private static final String COLOR_SOUL = "#C26D8A";
