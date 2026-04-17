@@ -40,7 +40,9 @@ public class RewardManager {
             R.drawable.rabbit,
             R.drawable.squirrel,
             R.drawable.sloth,
-            R.drawable.turtle
+            R.drawable.turtle,
+            R.drawable.ic_animated_hug_frame,
+            R.drawable.ic_otter_motivation
     };
 
     public RewardManager(Context context) {

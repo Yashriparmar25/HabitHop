@@ -65,12 +65,12 @@ public class DashboardActivity extends AppCompatActivity {
     };
 
     private final String[] stepTitles = {
-            "Your Profile 👤",
-            "Home Dashboard 🏠",
-            "Journal ✍️",
-            "Add a Habit ➕",
-            "Reminders 🔔",
-            "Profile Settings ⚙️"
+            "Your Profile ",
+            "Home Dashboard ",
+            "Journal ️",
+            "Add a Habit ",
+            "Reminders ",
+            "Profile Settings "
     };
 
     private final String[] stepDescs = {
