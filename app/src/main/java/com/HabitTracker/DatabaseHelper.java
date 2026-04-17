@@ -6,8 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -198,9 +201,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean isHabitDoneToday(String userEmail, int habitId, String date) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + COL_LOG_DONE + " FROM " + TABLE_LOGS +
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COL_LOG_DONE + " FROM " + TABLE_LOGS +
                         " WHERE " + COL_USER_EMAIL + "=? AND " + COL_LOG_HABIT + "=? AND " + COL_LOG_DATE + "=?",
-                new String[]{userEmail, String.valueOf(habitId), date});
+                new String[]{userEmail, String.valueOf(habitId), date}
+        );
 
         boolean done = false;
         if (cursor.moveToFirst()) done = cursor.getInt(0) == 1;
@@ -210,14 +215,81 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int getDailyCompletionStatus(String userEmail, String date) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_LOGS +
-                        " WHERE " + COL_USER_EMAIL + "=? AND " + COL_LOG_DATE + "=? AND " + COL_LOG_DONE + "=1",
-                new String[]{userEmail, date});
 
-        int count = 0;
-        if (cursor.moveToFirst()) count = cursor.getInt(0);
-        cursor.close();
-        return count == 0 ? 0 : 2;
+        Cursor habitCursor = db.rawQuery(
+                "SELECT COUNT(*) FROM " + TABLE_HABITS + " WHERE " + COL_USER_EMAIL + "=?",
+                new String[]{userEmail}
+        );
+
+        int totalHabits = 0;
+        if (habitCursor.moveToFirst()) {
+            totalHabits = habitCursor.getInt(0);
+        }
+        habitCursor.close();
+
+        if (totalHabits == 0) return 0;
+
+        Cursor doneCursor = db.rawQuery(
+                "SELECT COUNT(DISTINCT " + COL_LOG_HABIT + ") FROM " + TABLE_LOGS +
+                        " WHERE " + COL_USER_EMAIL + "=? AND " + COL_LOG_DATE + "=? AND " + COL_LOG_DONE + "=1",
+                new String[]{userEmail, date}
+        );
+
+        int doneHabits = 0;
+        if (doneCursor.moveToFirst()) {
+            doneHabits = doneCursor.getInt(0);
+        }
+        doneCursor.close();
+
+        if (doneHabits == 0) return 0;
+        if (doneHabits == totalHabits) return 2;
+        return 1;
+    }
+
+    public int getDailyCompletionStreak(String userEmail) {
+        SQLiteDatabase db = getReadableDatabase();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Calendar cal = Calendar.getInstance();
+
+        int streak = 0;
+
+        while (true) {
+            String date = sdf.format(cal.getTime());
+
+            Cursor habitCursor = db.rawQuery(
+                    "SELECT COUNT(*) FROM " + TABLE_HABITS + " WHERE " + COL_USER_EMAIL + "=?",
+                    new String[]{userEmail}
+            );
+
+            int totalHabits = 0;
+            if (habitCursor.moveToFirst()) {
+                totalHabits = habitCursor.getInt(0);
+            }
+            habitCursor.close();
+
+            if (totalHabits == 0) break;
+
+            Cursor doneCursor = db.rawQuery(
+                    "SELECT COUNT(DISTINCT " + COL_LOG_HABIT + ") FROM " + TABLE_LOGS +
+                            " WHERE " + COL_USER_EMAIL + "=? AND " + COL_LOG_DATE + "=? AND " + COL_LOG_DONE + "=1",
+                    new String[]{userEmail, date}
+            );
+
+            int doneHabits = 0;
+            if (doneCursor.moveToFirst()) {
+                doneHabits = doneCursor.getInt(0);
+            }
+            doneCursor.close();
+
+            if (doneHabits == totalHabits) {
+                streak++;
+                cal.add(Calendar.DATE, -1);
+            } else {
+                break;
+            }
+        }
+
+        return streak;
     }
 
     public int getStreak(String userEmail, int habitId) {

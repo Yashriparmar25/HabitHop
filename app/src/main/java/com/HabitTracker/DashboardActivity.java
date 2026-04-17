@@ -293,23 +293,34 @@ public class DashboardActivity extends AppCompatActivity {
         String today = sdf.format(Calendar.getInstance().getTime());
 
         List<Habit> habits = dbHelper.getAllHabitsList(currentUserEmail);
+        if (habits == null) habits = new ArrayList<>();
+
         int total = habits.size();
         int done = 0;
+
         for (Habit h : habits) {
-            if (dbHelper.isHabitDoneToday(currentUserEmail, h.getId(), today)) done++;
+            if (dbHelper.isHabitDoneToday(currentUserEmail, h.getId(), today)) {
+                done++;
+            }
         }
 
         tvTasksDone.setText(String.valueOf(done));
         tvTasksDue.setText(String.valueOf(total - done));
 
-        int streak = 0;
-        if (!habits.isEmpty()) streak = dbHelper.getStreak(currentUserEmail, habits.get(0).getId());
-        tvStreakCount.setText(String.valueOf(streak));
+        boolean allCompleted = total > 0 && done == total;
 
-        if (streak == 0) tvStreakMessage.setText("Start your streak today! 💪");
-        else if (streak < 3) tvStreakMessage.setText("Good start, keep going!");
-        else if (streak < 7) tvStreakMessage.setText("You are doing great! 🔥");
-        else tvStreakMessage.setText("Unstoppable! 🚀");
+        if (allCompleted) {
+            int streak = dbHelper.getDailyCompletionStreak(currentUserEmail);
+            tvStreakCount.setText(String.valueOf(streak));
+
+            if (streak == 0) tvStreakMessage.setText("Start your streak today! 💪");
+            else if (streak < 3) tvStreakMessage.setText("Good start, keep going!");
+            else if (streak < 7) tvStreakMessage.setText("You are doing great! 🔥");
+            else tvStreakMessage.setText("Unstoppable! 🚀");
+        } else {
+            tvStreakCount.setText("0");
+            tvStreakMessage.setText("Complete all habits today to start your streak.");
+        }
 
         TextView[] dayViews = {dayMon, dayTue, dayWed, dayThu, dayFri, daySat, daySun};
         Calendar cal = Calendar.getInstance();
@@ -330,7 +341,7 @@ public class DashboardActivity extends AppCompatActivity {
                 tv.setText("👀");
                 tv.setBackgroundResource(R.drawable.day_today_bg);
             } else if (isPast && status == 1) {
-                tv.setText("~");
+                tv.setText("");
                 tv.setTextColor(Color.parseColor("#F4A300"));
                 tv.setBackgroundResource(R.drawable.day_pending_bg);
             } else {

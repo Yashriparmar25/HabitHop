@@ -84,7 +84,7 @@ public class RewardManager {
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         TextView title = new TextView(context);
-        title.setText("🎉 Reward unlocked!");
+        title.setText("Reward unlocked!");
         title.setTextColor(Color.parseColor("#1F1A17"));
         title.setTextSize(22f);
         title.setTypeface(null, android.graphics.Typeface.BOLD);
