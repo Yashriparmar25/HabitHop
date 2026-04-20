@@ -324,8 +324,8 @@ public class JournalActivity extends AppCompatActivity {
     private void setupNavigation() {
         navAdd.setOnClickListener(v ->
                 startActivityForResult(new Intent(this, AddHabitActivity.class), 100));
-        navJournal.setOnClickListener(v ->
-                startActivity(new Intent(this, JournalActivity.class)));
+        navHome.setOnClickListener(v ->
+                startActivity(new Intent(this, DashboardActivity.class)));
         navReminders.setOnClickListener(v ->
                 startActivity(new Intent(this, RemindersActivity.class)));
         navProfile.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
