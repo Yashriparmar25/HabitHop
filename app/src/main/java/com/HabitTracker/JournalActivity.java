@@ -54,6 +54,7 @@ public class JournalActivity extends AppCompatActivity {
     private TextInputEditText etWentWell, etImprove, etNotes, etTomorrow;
 
     private TextView tvAnimalPrompt, tvAnimalSub, tvWaterCount, tvDate;
+    private LinearLayout navHome, navJournal, navAdd, navReminders, navProfile;
     private LottieAnimationView lottieAnimal;
     private LinearLayout layoutWater;
 
@@ -78,6 +79,7 @@ public class JournalActivity extends AppCompatActivity {
         setupMoodSelection();
         setupSaveButton();
         setupViewEntriesButton();
+        setupNavigation();
 
         lottieAnimal.setAnimation(R.raw.animal_anim);
         lottieAnimal.loop(true);
@@ -86,6 +88,7 @@ public class JournalActivity extends AppCompatActivity {
         setAnimalPrompt(selectedMoodIndex);
         updateMoodSelection(selectedMoodIndex);
         updateWaterDrops();
+
     }
 
     private void bindViews() {
@@ -108,6 +111,12 @@ public class JournalActivity extends AppCompatActivity {
         tvDate = findViewById(R.id.tv_date);
         lottieAnimal = findViewById(R.id.lottie_animal);
         layoutWater = findViewById(R.id.layout_water);
+
+        navHome = findViewById(R.id.navHome);
+        navJournal = findViewById(R.id.navJournal);
+        navAdd = findViewById(R.id.navAdd);
+        navReminders = findViewById(R.id.navReminders);
+        navProfile = findViewById(R.id.navProfile);
     }
 
     private void setTodayDate() {
@@ -312,4 +321,14 @@ public class JournalActivity extends AppCompatActivity {
             Toast.makeText(this, "Coming soon 💖", Toast.LENGTH_SHORT).show();
         });
     }
+    private void setupNavigation() {
+        navAdd.setOnClickListener(v ->
+                startActivityForResult(new Intent(this, AddHabitActivity.class), 100));
+        navJournal.setOnClickListener(v ->
+                startActivity(new Intent(this, JournalActivity.class)));
+        navReminders.setOnClickListener(v ->
+                startActivity(new Intent(this, RemindersActivity.class)));
+        navProfile.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
+    }
+
 }
