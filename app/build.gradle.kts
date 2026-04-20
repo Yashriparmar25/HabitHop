@@ -27,13 +27,16 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
     }
@@ -53,6 +56,8 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.activity.compose)
     debugImplementation(libs.ui.tooling)
+
+    implementation("com.airbnb.android:lottie:6.3.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

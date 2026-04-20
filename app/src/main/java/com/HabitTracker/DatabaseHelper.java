@@ -15,7 +15,7 @@ import java.util.Locale;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "HabitTracker.db";
-    private static final int DB_VERSION = 8;
+    private static final int DB_VERSION = 9;
 
     public static final String TABLE_USERS = "users";
     public static final String TABLE_HABITS = "habits";
@@ -47,6 +47,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_J_TIME = "entry_time";
     public static final String COL_J_TEXT = "entry_text";
     public static final String COL_J_MOOD = "mood";
+    public static final String COL_J_GRATEFUL1 = "grateful1";
+    public static final String COL_J_GRATEFUL2 = "grateful2";
+    public static final String COL_J_GRATEFUL3 = "grateful3";
+    public static final String COL_J_AFFIRMATION1 = "affirmation1";
+    public static final String COL_J_AFFIRMATION2 = "affirmation2";
+    public static final String COL_J_AFFIRMATION3 = "affirmation3";
+    public static final String COL_J_WENT_WELL = "went_well";
+    public static final String COL_J_IMPROVE = "improve";
+    public static final String COL_J_NOTES = "notes";
+    public static final String COL_J_TOMORROW = "tomorrow";
+    public static final String COL_J_WATER = "water_count";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -87,7 +98,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_J_DATE + " TEXT, "
                 + COL_J_TIME + " TEXT, "
                 + COL_J_TEXT + " TEXT, "
-                + COL_J_MOOD + " TEXT)");
+                + COL_J_MOOD + " TEXT, "
+                + COL_J_GRATEFUL1 + " TEXT, "
+                + COL_J_GRATEFUL2 + " TEXT, "
+                + COL_J_GRATEFUL3 + " TEXT, "
+                + COL_J_AFFIRMATION1 + " TEXT, "
+                + COL_J_AFFIRMATION2 + " TEXT, "
+                + COL_J_AFFIRMATION3 + " TEXT, "
+                + COL_J_WENT_WELL + " TEXT, "
+                + COL_J_IMPROVE + " TEXT, "
+                + COL_J_NOTES + " TEXT, "
+                + COL_J_TOMORROW + " TEXT, "
+                + COL_J_WATER + " INTEGER)");
     }
 
     @Override
@@ -304,15 +326,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return streak;
     }
 
-    public void saveJournal(String userEmail, String entryDate, String entryTime, String text, String mood) {
+    public long saveJournalEntry(String userEmail, String entryDate, String entryTime, String mood,
+                                 String text, String grateful1, String grateful2, String grateful3,
+                                 String affirmation1, String affirmation2, String affirmation3,
+                                 String wentWell, String improve, String notes, String tomorrow,
+                                 int waterCount) {
+
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_USER_EMAIL, userEmail);
         values.put(COL_J_DATE, entryDate);
         values.put(COL_J_TIME, entryTime);
-        values.put(COL_J_TEXT, text);
         values.put(COL_J_MOOD, mood);
-        db.insert(TABLE_JOURNAL, null, values);
+        values.put(COL_J_TEXT, text);
+        values.put(COL_J_GRATEFUL1, grateful1);
+        values.put(COL_J_GRATEFUL2, grateful2);
+        values.put(COL_J_GRATEFUL3, grateful3);
+        values.put(COL_J_AFFIRMATION1, affirmation1);
+        values.put(COL_J_AFFIRMATION2, affirmation2);
+        values.put(COL_J_AFFIRMATION3, affirmation3);
+        values.put(COL_J_WENT_WELL, wentWell);
+        values.put(COL_J_IMPROVE, improve);
+        values.put(COL_J_NOTES, notes);
+        values.put(COL_J_TOMORROW, tomorrow);
+        values.put(COL_J_WATER, waterCount);
+
+        return db.insert(TABLE_JOURNAL, null, values);
     }
 
     public Cursor getAllJournalEntries(String userEmail) {
@@ -349,6 +388,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COL_USER_EMAIL + "=?", new String[]{currentUserEmail});
     }
+
     public void deleteUserAccount(String userEmail) {
         SQLiteDatabase db = getWritableDatabase();
 

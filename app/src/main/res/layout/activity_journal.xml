@@ -1,328 +1,565 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4DEDE">
+    android:background="#FFF5F7"
+    android:fillViewport="true">
 
     <LinearLayout
-        android:id="@+id/journalRoot"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:padding="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
 
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="8dp"
-                android:src="@android:drawable/ic_media_previous"
-                android:background="@drawable/card_category_unselected"
-                android:contentDescription="Back"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Journal"
+                android:textSize="38sp"
+                android:textColor="#2E7D52"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DATE:"
+                        android:textColor="#2E7D52"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1"
+                        android:layout_marginEnd="6dp" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="__ / __ / ____"
+                        android:textColor="#C26D8A"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#D8EED7"
+            android:layout_marginBottom="16dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#E8F5E9"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="14dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie_animal"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:lottie_rawRes="@raw/animal_anim"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_animal_prompt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hey!  How was your day?"
+                        android:textColor="#2E7D52"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_animal_sub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Let's reflect, grow &amp; find clarity 💚"
+                        android:textColor="#5A8A6A"
+                        android:textSize="12sp"
+                        android:layout_marginTop="3dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TODAY'S MOOD"
+            android:textColor="#2E7D52"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="10dp" />
+
+        <LinearLayout
+            android:id="@+id/layout_mood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginStart="12dp">
+                android:gravity="center"
+                android:paddingHorizontal="2dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Journal"
-                    android:textColor="#1F1A17"
+                    android:id="@+id/mood_angry"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:text="😠"
                     android:textSize="28sp"
-                    android:textStyle="bold"/>
+                    android:padding="0dp"
+                    android:background="@drawable/bg_mood_unselected" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Write what’s on your mind today"
-                    android:textColor="#8A817C"
-                    android:textSize="13sp"
-                    android:layout_marginTop="4dp"/>
+                    android:text="ANGRY"
+                    android:textSize="10sp"
+                    android:textColor="#C26D8A"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvJournalDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="14 Apr"
-                android:textColor="#6F5B5B"
-                android:textSize="13sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/card_soft_white"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="How are you feeling?"
-                android:textColor="#1F1A17"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
 
             <LinearLayout
-                android:id="@+id/moodRow"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingHorizontal="2dp">
 
                 <TextView
-                    android:id="@+id/moodHappy"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="6dp"
-                    android:background="@drawable/card_category_unselected"
+                    android:id="@+id/mood_tired"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
                     android:gravity="center"
-                    android:text="😊 Happy"
-                    android:textColor="#1F1A17"
-                    android:textSize="12sp"/>
+                    android:text="😪"
+                    android:textSize="28sp"
+                    android:padding="0dp"
+                    android:background="@drawable/bg_mood_unselected" />
 
                 <TextView
-                    android:id="@+id/moodCalm"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="6dp"
-                    android:background="@drawable/card_category_unselected"
-                    android:gravity="center"
-                    android:text="🌤 Calm"
-                    android:textColor="#1F1A17"
-                    android:textSize="12sp"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TIRED"
+                    android:textSize="10sp"
+                    android:textColor="#C26D8A"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingHorizontal="2dp">
 
                 <TextView
-                    android:id="@+id/moodTired"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/card_category_unselected"
+                    android:id="@+id/mood_sad"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
                     android:gravity="center"
-                    android:text="😴 Tired"
-                    android:textColor="#1F1A17"
-                    android:textSize="12sp"/>
+                    android:text="😢"
+                    android:textSize="28sp"
+                    android:padding="0dp"
+                    android:background="@drawable/bg_mood_unselected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SAD"
+                    android:textSize="10sp"
+                    android:textColor="#C26D8A"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingHorizontal="2dp">
+
+                <TextView
+                    android:id="@+id/mood_happy"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:text="😊"
+                    android:textSize="28sp"
+                    android:padding="0dp"
+                    android:background="@drawable/bg_mood_unselected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HAPPY"
+                    android:textSize="10sp"
+                    android:textColor="#C26D8A"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingHorizontal="2dp">
+
+                <TextView
+                    android:id="@+id/mood_excited"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:text="🤩"
+                    android:textSize="28sp"
+                    android:padding="0dp"
+                    android:background="@drawable/bg_mood_unselected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EXCITED"
+                    android:textSize="10sp"
+                    android:textColor="#C26D8A"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp" />
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TODAY I'M GRATEFUL FOR:"
+            android:textColor="#2E7D52"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="10dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/card_soft_white"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#A5D6A7"
+            app:hintTextColor="#2E7D52"
+            android:hint="1."
+            android:layout_marginBottom="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Write your note"
-                android:textColor="#1F1A17"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/etJournalText"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_grateful1"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/bg_journal_text"
-                android:gravity="top"
-                android:hint="Today I..."
-                android:inputType="textMultiLine|textCapSentences"
-                android:padding="10dp"
-                android:textColor="#1F1A17"
-                android:textColorHint="#A29A94"
-                android:textSize="15sp"/>
-
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Today's Entries"
                 android:textColor="#1F1A17"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerJournalEntries"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#A5D6A7"
+            app:hintTextColor="#2E7D52"
+            android:hint="2."
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_grateful2"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:nestedScrollingEnabled="false"
-                android:backgroundTint="#F5F2EC"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:textColor="#1F1A17"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#A5D6A7"
+            app:hintTextColor="#2E7D52"
+            android:hint="3."
+            android:layout_marginBottom="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_grateful3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#1F1A17"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
 
-            <Button
-                android:id="@+id/btnNewJournal"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/btn_soft_yellow"
-                android:text="New Journal"
-                android:textAllCaps="false"
-                android:textColor="@color/Pastel_Pink"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:layout_marginEnd="8dp">
 
-            <Button
-                android:id="@+id/btnSaveJournal"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TODAY'S AFFIRMATION"
+                    android:textColor="#2E7D52"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.12"
+                    android:layout_marginBottom="10dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="#F48FB1"
+                    app:hintTextColor="#C26D8A"
+                    android:hint="I am..."
+                    android:layout_marginBottom="8dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_affirmation1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#1F1A17" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="#F48FB1"
+                    app:hintTextColor="#C26D8A"
+                    android:hint="I deserve..."
+                    android:layout_marginBottom="8dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_affirmation2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#1F1A17" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="#F48FB1"
+                    app:hintTextColor="#C26D8A"
+                    android:hint="Today I choose...">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_affirmation3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#1F1A17" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/btn_soft_yellow"
-                android:text="Save Journal"
-                android:textAllCaps="false"
-                android:textColor="@color/Pastel_Pink"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WATER INTAKE"
+                    android:textColor="#2E7D52"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.12"
+                    android:layout_marginBottom="10dp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_water"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/tv_water_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 / 8 glasses"
+                    android:textColor="#C26D8A"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:layout_gravity="center" />
+            </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SELF REFLECTION"
+            android:textColor="#2E7D52"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="10dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#A5D6A7"
+            app:hintTextColor="#2E7D52"
+            android:hint="What went well today?"
+            android:layout_marginBottom="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_went_well"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="2"
+                android:inputType="textMultiLine"
+                android:textColor="#1F1A17" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#F48FB1"
+            app:hintTextColor="#C26D8A"
+            android:hint="What can I improve?"
+            android:layout_marginBottom="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_improve"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="2"
+                android:inputType="textMultiLine"
+                android:textColor="#1F1A17" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#A5D6A7"
+            app:hintTextColor="#2E7D52"
+            android:hint="Notes / Reminders"
+            android:layout_marginBottom="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="2"
+                android:inputType="textMultiLine"
+                android:textColor="#1F1A17" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#F48FB1"
+            app:hintTextColor="#C26D8A"
+            android:hint="For tomorrow..."
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_tomorrow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="2"
+                android:inputType="textMultiLine"
+                android:textColor="#1F1A17" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save_journal"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Save Entry "
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:backgroundTint="#2E7D52"
+            app:cornerRadius="16dp"
+            android:layout_marginBottom="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_view_entries"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="View Past Entries"
+            android:textSize="15sp"
+            android:textColor="#C26D8A"
+            android:textStyle="bold"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="#C26D8A"
+            app:cornerRadius="16dp"
+            android:layout_marginBottom="20dp" />
+
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/bottomNavBar"
-        android:layout_width="0dp"
-        android:layout_height="68dp"
-        android:background="@color/surface_card"
-        android:elevation="12dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:id="@+id/navHome"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_today"
-                android:contentDescription="Home" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Home"
-                android:textColor="#8A817C"
-                android:textSize="11sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navJournal"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="17dp"
-                android:contentDescription="Journal"
-                android:src="@android:drawable/ic_menu_edit" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Journal"
-                android:textColor="@color/dark_green"
-                android:textSize="11sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navAdd"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:background="@drawable/btn_add_circle"
-                android:gravity="center"
-                android:text="+"
-                android:textColor="#FFFFFF"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navReminders"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_agenda"
-                android:contentDescription="Reminders" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Remind"
-                android:textColor="#8A817C"
-                android:textSize="11sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navProfile"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_myplaces"
-                android:contentDescription="Profile" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Profile"
-                android:textColor="#8A817C"
-                android:textSize="11sp"/>
-        </LinearLayout>
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
