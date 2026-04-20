@@ -5,6 +5,8 @@
 ![Min SDK](https://img.shields.io/badge/Min%20SDK-24-blue)
 ![Target SDK](https://img.shields.io/badge/Target%20SDK-35-blue)
 ![Status](https://img.shields.io/badge/Status-Active%20Development-ff9800)
+<br>
+
 Habit Hop is a local-first Android habit-building app designed to make daily consistency feel approachable and rewarding.
 It combines habit tracking, journaling, mood check-ins, sleep logs, reminders, and progress insights in one cohesive experience.
 
