@@ -1,41 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_entry"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:background="@drawable/card_soft_white"
-    android:orientation="vertical"
-    android:padding="14dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:strokeColor="#D8EED7"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="14dp">
 
-        <TextView
-            android:id="@+id/tvEntryMood"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Happy"
-            android:textColor="#1F1A17"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_entry_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#2E7D52"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_expand_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▼"
+                android:textColor="#C26D8A"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tvEntryTime"
+            android:id="@+id/tv_entry_mood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10:30 AM"
-            android:textColor="#8A817C"
-            android:textSize="12sp" />
-    </LinearLayout>
+            android:layout_marginTop="4dp"
+            android:textColor="#C26D8A"
+            android:textSize="13sp" />
 
-    <TextView
-        android:id="@+id/tvEntryText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Journal text here"
-        android:textColor="#6F5B5B"
-        android:textSize="14sp" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_entry_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="#1F1A17"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:id="@+id/expanded_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:id="@+id/tv_grateful"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#1F1A17"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_affirmations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#1F1A17"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_reflection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#1F1A17"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_water"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#1F1A17"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

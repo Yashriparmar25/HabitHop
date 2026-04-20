@@ -397,4 +397,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE_HABITS, COL_USER_EMAIL + "=?", new String[]{userEmail});
         db.delete(TABLE_USERS, COL_USER_EMAIL + "=?", new String[]{userEmail});
     }
+    public List<JournalEntry> getAllJournalEntryList(String userEmail) {
+        List<JournalEntry> list = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " + TABLE_JOURNAL +
+                        " WHERE " + COL_USER_EMAIL + "=? ORDER BY " + COL_ID + " DESC",
+                new String[]{userEmail}
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID));
+                String date = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_DATE));
+                String time = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_TIME));
+                String mood = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_MOOD));
+                String grateful1 = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_GRATEFUL1));
+                String grateful2 = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_GRATEFUL2));
+                String grateful3 = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_GRATEFUL3));
+                String affirmation1 = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_AFFIRMATION1));
+                String affirmation2 = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_AFFIRMATION2));
+                String affirmation3 = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_AFFIRMATION3));
+                String wentWell = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_WENT_WELL));
+                String improve = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_IMPROVE));
+                String notes = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_NOTES));
+                String tomorrow = cursor.getString(cursor.getColumnIndexOrThrow(COL_J_TOMORROW));
+                int waterCount = cursor.getInt(cursor.getColumnIndexOrThrow(COL_J_WATER));
+
+                list.add(new JournalEntry(id, date, time, mood,
+                        grateful1, grateful2, grateful3,
+                        affirmation1, affirmation2, affirmation3,
+                        wentWell, improve, notes, tomorrow,
+                        waterCount));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return list;
+    }
+
 }

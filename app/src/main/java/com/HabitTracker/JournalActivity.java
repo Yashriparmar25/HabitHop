@@ -318,7 +318,9 @@ public class JournalActivity extends AppCompatActivity {
 
     private void setupViewEntriesButton() {
         findViewById(R.id.btn_view_entries).setOnClickListener(v -> {
-            Toast.makeText(this, "Coming soon 💖", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, PastEntriesActivity.class);
+            intent.putExtra("user_email", currentUserEmail);
+            startActivity(intent);
         });
     }
     private void setupNavigation() {
