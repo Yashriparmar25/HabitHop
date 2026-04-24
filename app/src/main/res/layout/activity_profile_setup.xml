@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
         <!-- Green top header -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,12 +27,12 @@
                 android:layout_height="146dp"
                 android:layout_marginBottom="12dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/dinoyawwr"	 />
+                android:src="@drawable/dinoyawwr" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Set Up Your Profile"
+                android:text="@string/setup_profile_title"
                 android:textColor="@color/beige"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -42,11 +41,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tell us a little about yourself"
+                android:text="@string/setup_profile_subtitle"
                 android:textColor="#80F7F4D5"
                 android:textSize="13sp"
                 android:layout_marginTop="4dp"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -76,18 +74,17 @@
                     android:id="@+id/tv_pick_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tap to add photo"
+                    android:text="@string/tap_to_add_photo"
                     android:textColor="@color/moss_green"
                     android:textSize="13sp"
                     android:layout_marginTop="8dp"/>
-
             </LinearLayout>
 
             <!-- Full Name -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Full Name"
+                android:text="@string/full_name"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:layout_marginBottom="6dp"/>
@@ -101,7 +98,7 @@
                     android:id="@+id/et_fullname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="e.g. Lando Norris"
+                    android:hint="@string/full_name_hint"
                     android:inputType="textPersonName"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +106,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Birthday"
+                android:text="@string/birthday"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:layout_marginBottom="6dp"/>
@@ -123,7 +120,7 @@
                     android:id="@+id/et_birthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="DD / MM / YYYY"
+                    android:hint="@string/birthday_hint"
                     android:focusable="false"
                     android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -132,7 +129,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender"
+                android:text="@string/gender"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:layout_marginBottom="10dp"/>
@@ -149,29 +146,28 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Male"/>
+                    android:text="@string/male"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_female"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Female"/>
+                    android:text="@string/female"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_other_gender"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Prefer not to say"/>
-
+                    android:text="@string/prefer_not_to_say"/>
             </com.google.android.material.chip.ChipGroup>
 
             <!-- Goal -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Main Goal"
+                android:text="@string/my_main_goal"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:layout_marginBottom="10dp"/>
@@ -188,37 +184,76 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="👩‍⚕️ Be Healthier"/>
+                    android:text="@string/goal_health"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_learn"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="📚 Learn More"/>
+                    android:text="@string/goal_learn"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_fit"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="💪 Get Fit"/>
+                    android:text="@string/goal_fit"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_mindful"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🧘 Be Mindful"/>
+                    android:text="@string/goal_mindful"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_productive"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="⚡ Be Productive"/>
-
+                    android:text="@string/goal_productive"/>
             </com.google.android.material.chip.ChipGroup>
+
+            <!-- Language selector -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_language"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_marginBottom="28dp">
+
+                <Button
+                    android:id="@+id/btn_lang_english"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/english"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/btn_lang_hindi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hindi"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/btn_lang_gujarati"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/gujarati"/>
+            </LinearLayout>
 
             <!-- ===== HABITS SECTION ===== -->
             <LinearLayout
@@ -232,24 +267,22 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="My Habits"
+                    android:text="@string/my_habits"
                     android:textColor="@color/text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
-                <!-- + Add habit button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_add_habit"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+ Add Habit"
+                    android:text="@string/add_habit"
                     android:textColor="@color/dark_green"
                     app:strokeColor="@color/dark_green"/>
-
             </LinearLayout>
 
-            <!-- Habit input row (hidden by default, shown when + is tapped) -->
+            <!-- Habit input row -->
             <LinearLayout
                 android:id="@+id/ll_habit_input"
                 android:layout_width="match_parent"
@@ -269,7 +302,7 @@
                         android:id="@+id/et_new_habit_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Habit name e.g. Drink Water"/>
+                        android:hint="@string/habit_name_hint"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -281,20 +314,18 @@
                         android:id="@+id/et_new_habit_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Description (optional)"/>
+                        android:hint="@string/habit_desc_hint"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/btn_save_habit"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:text="Save Habit"
+                    android:text="@string/save_habit"
                     android:backgroundTint="@color/moss_green"
                     android:textColor="@color/beige"/>
-
             </LinearLayout>
 
-            <!-- List of added habits shows here dynamically -->
             <LinearLayout
                 android:id="@+id/ll_habits_list"
                 android:layout_width="match_parent"
@@ -302,16 +333,14 @@
                 android:orientation="vertical"
                 android:layout_marginBottom="32dp"/>
 
-            <!-- Continue button -->
             <Button
                 android:id="@+id/btn_continue"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Let's Go!"
+                android:text="@string/lets_go"
                 android:textSize="16sp"
                 android:backgroundTint="@color/dark_green"
                 android:textColor="@color/beige"/>
-
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

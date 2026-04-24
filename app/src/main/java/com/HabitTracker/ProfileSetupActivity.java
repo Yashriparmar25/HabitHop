@@ -3,6 +3,7 @@ package com.HabitTracker;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.database.Cursor;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -24,11 +24,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ProfileSetupActivity extends AppCompatActivity {
+public class ProfileSetupActivity extends Baseactivity {
 
     TextInputEditText etFullname, etBirthday, etNewHabitName, etNewHabitDesc;
     LinearLayout llHabitInput, llHabitsList;
     Button btnAddHabit, btnSaveHabit, btnContinue;
+    Button btnLangEnglish, btnLangHindi, btnLangGujarati;
 
     ImageView ivProfilePhoto;
     TextView tvPickPhoto;
@@ -67,7 +68,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                                     ivProfilePhoto.setPadding(0, 0, 0, 0);
                                     ivProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                 }
-                                tvPickPhoto.setText("Tap to change avatar");
+                                tvPickPhoto.setText(getString(R.string.tap_to_change_avatar));
                             } else if (galleryUri != null && !galleryUri.isEmpty()) {
                                 pickedGalleryUri = galleryUri;
                                 pickedAvatarResName = "";
@@ -75,9 +76,9 @@ public class ProfileSetupActivity extends AppCompatActivity {
                                     ivProfilePhoto.setImageURI(Uri.parse(galleryUri));
                                     ivProfilePhoto.setPadding(0, 0, 0, 0);
                                     ivProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                                    tvPickPhoto.setText("Tap to change photo");
+                                    tvPickPhoto.setText(getString(R.string.tap_to_change_photo));
                                 } catch (Exception e) {
-                                    Toast.makeText(this, "Unable to load gallery photo", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(this, getString(R.string.unable_to_load_gallery_photo), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -106,6 +107,10 @@ public class ProfileSetupActivity extends AppCompatActivity {
         tvPickPhoto = findViewById(R.id.tv_pick_photo);
         chipGroupGender = findViewById(R.id.chip_group_gender);
         chipGroupGoal = findViewById(R.id.chip_group_goal);
+
+        btnLangEnglish = findViewById(R.id.btn_lang_english);
+        btnLangHindi = findViewById(R.id.btn_lang_hindi);
+        btnLangGujarati = findViewById(R.id.btn_lang_gujarati);
 
         loadExistingProfile();
 
@@ -150,7 +155,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
             String name = etNewHabitName.getText().toString().trim();
             String desc = etNewHabitDesc.getText().toString().trim();
             if (name.isEmpty()) {
-                etNewHabitName.setError("Please enter a habit name");
+                etNewHabitName.setError(getString(R.string.please_enter_habit_name));
                 return;
             }
 
@@ -159,7 +164,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
             TextView habitChip = new TextView(this);
             habitChip.setText("✓ " + name);
-            habitChip.setTextColor(getResources().getColor(R.color.dark_green));
+            habitChip.setTextColor(ContextCompat.getColor(this, R.color.dark_green));
             habitChip.setTextSize(14);
             habitChip.setPadding(16, 12, 16, 12);
             habitChip.setBackgroundResource(R.drawable.card_soft_white);
@@ -178,6 +183,15 @@ public class ProfileSetupActivity extends AppCompatActivity {
         });
 
         btnContinue.setOnClickListener(v -> saveAndContinue());
+
+        btnLangEnglish.setOnClickListener(v -> changeLanguage("en"));
+        btnLangHindi.setOnClickListener(v -> changeLanguage("hi"));
+        btnLangGujarati.setOnClickListener(v -> changeLanguage("gu"));
+    }
+
+    private void changeLanguage(String lang) {
+        Localhelper.setLocale(this, lang);
+        recreate();
     }
 
     private void loadExistingProfile() {
@@ -218,7 +232,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
         String birthday = etBirthday.getText() != null ? etBirthday.getText().toString().trim() : "";
 
         if (fullname.isEmpty()) {
-            etFullname.setError("Please enter your name");
+            etFullname.setError(getString(R.string.please_enter_your_name));
             return;
         }
 
@@ -234,6 +248,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
         editor.putString("avatar_res_name", pickedAvatarResName);
         editor.putString("avatar_gallery_uri", pickedGalleryUri);
         editor.putBoolean("is_logged_in", true);
+        editor.putString("app_language", Localhelper.getPersistedLanguage(this));
         editor.apply();
 
         boolean exists = dbHelper.userExists(currentUserEmail);

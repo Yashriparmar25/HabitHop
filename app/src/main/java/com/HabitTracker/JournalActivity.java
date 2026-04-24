@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class JournalActivity extends AppCompatActivity {
+public class JournalActivity extends Baseactivity {
 
     private int waterCount = 0;
     private String selectedMood = "happy";

@@ -11,19 +11,21 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#F4DEDE"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:paddingBottom="30dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="My Profile"
+                android:text="@string/my_profile"
                 android:textColor="#1F1A17"
                 android:textSize="26sp"
                 android:textStyle="bold" />
@@ -50,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="User"
+                    android:text="@string/user"
                     android:textColor="#1F1A17"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -86,7 +88,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="My Stats"
+                    android:text="@string/my_stats"
                     android:textColor="#1F1A17"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -116,7 +118,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Habits"
+                            android:text="@string/habits"
                             android:textColor="#8A817C"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -145,7 +147,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Streak"
+                            android:text="@string/streak"
                             android:textColor="#8A817C"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -174,7 +176,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Today"
+                            android:text="@string/today"
                             android:textColor="#8A817C"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -192,7 +194,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Personal Info"
+                    android:text="@string/personal_info"
                     android:textColor="#1F1A17"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -208,7 +210,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Birthday"
+                        android:text="@string/birthday"
                         android:textColor="#8A817C"
                         android:textSize="14sp" />
 
@@ -238,7 +240,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Gender"
+                        android:text="@string/gender"
                         android:textColor="#8A817C"
                         android:textSize="14sp" />
 
@@ -268,7 +270,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Goal"
+                        android:text="@string/goal"
                         android:textColor="#8A817C"
                         android:textSize="14sp" />
 
@@ -281,12 +283,47 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="#F0EBE6" />
+
+                <LinearLayout
+                    android:id="@+id/btnLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingVertical="6dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/select_language"
+                        android:textColor="#8A817C"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvCurrentLanguage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/english"
+                        android:textColor="#1F1A17"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="110dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -311,7 +348,7 @@
                     android:layout_marginStart="8dp"
                     android:background="@drawable/card_rose_quartz"
                     app:backgroundTint="@null"
-                    android:text="Delete Account"
+                    android:text="@string/delete_account"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
@@ -340,14 +377,14 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Home"
+                android:contentDescription="@string/home"
                 android:src="@android:drawable/ic_menu_today" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Home"
+                android:text="@string/home"
                 android:textColor="#8A817C"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -364,14 +401,14 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Journal"
+                android:contentDescription="@string/journal"
                 android:src="@android:drawable/ic_menu_edit" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Journal"
+                android:text="@string/journal"
                 android:textColor="#8A817C"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -406,14 +443,14 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Reminders"
+                android:contentDescription="@string/reminders"
                 android:src="@android:drawable/ic_menu_agenda" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Remind"
+                android:text="@string/reminders"
                 android:textColor="#8A817C"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -429,14 +466,14 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Profile"
+                android:contentDescription="@string/profile"
                 android:src="@android:drawable/ic_menu_myplaces" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Profile"
+                android:text="@string/profile"
                 android:textColor="@color/dark_green"
                 android:textSize="11sp" />
         </LinearLayout>

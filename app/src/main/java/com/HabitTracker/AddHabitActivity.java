@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddHabitActivity extends AppCompatActivity {
+public class AddHabitActivity extends Baseactivity {
 
     private TextInputEditText etHabitName, etHabitDesc;
     private LinearLayout cardHealth, cardStudy, cardMind, cardSoul, cardWork;

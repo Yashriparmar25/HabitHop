@@ -16,9 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +26,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends Baseactivity {
 
     private TextView tvUserName;
     private ImageView profileImage;
@@ -64,22 +62,22 @@ public class DashboardActivity extends AppCompatActivity {
             R.id.navProfile
     };
 
-    private final String[] stepTitles = {
-            "Your Profile ",
-            "Home Dashboard ",
-            "Journal ️",
-            "Add a Habit ",
-            "Reminders ",
-            "Profile Settings "
+    private final int[] stepTitleRes = {
+            R.string.your_profile,
+            R.string.home_dashboard,
+            R.string.journal,
+            R.string.add_a_habit,
+            R.string.reminders,
+            R.string.profile_settings
     };
 
-    private final String[] stepDescs = {
-            "Tap your avatar to view and edit your profile, change your photo, and update personal info.",
-            "This is your home! See your daily streak, sleep, mood, and all your habits at a glance.",
-            "Write your daily journal entries, express your thoughts, and track how you feel each day.",
-            "Tap the + button anytime to add a new habit you want to build and track daily.",
-            "Set smart reminders so you never forget to complete your habits every day.",
-            "View your progress stats, edit your profile details, and manage your account here."
+    private final int[] stepDescRes = {
+            R.string.onboarding_profile_desc,
+            R.string.onboarding_home_desc,
+            R.string.onboarding_journal_desc,
+            R.string.onboarding_add_habit_desc,
+            R.string.onboarding_reminders_desc,
+            R.string.onboarding_profile_settings_desc
     };
 
     @Override
@@ -93,10 +91,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         bindViews();
 
-        profileImage.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
-            startActivity(intent);
-        });
+        profileImage.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, ProfileActivity.class)));
 
         loadUserData();
         setupNavigation();
@@ -202,15 +197,17 @@ public class DashboardActivity extends AppCompatActivity {
         boolean hasSleepRecord = !lastDate.isEmpty() || !lastDuration.isEmpty();
 
         if (!hasSleepRecord) {
-            tvSleepCardTitle.setText("Track sleep");
-            tvSleepCardSubtitle.setText("Start your first sleep session");
-            tvSleepCardMeta.setText("Tap to open sleep tracker");
+            tvSleepCardTitle.setText(R.string.track_sleep);
+            tvSleepCardSubtitle.setText(R.string.start_your_first_sleep_session);
+            tvSleepCardMeta.setText(R.string.tap_to_open_sleep_tracker);
             return;
         }
 
-        tvSleepCardTitle.setText("Last sleep");
+        tvSleepCardTitle.setText(R.string.last_sleep);
 
-        String subtitle = lastDuration.isEmpty() ? "Recent sleep session" : lastDuration;
+        String subtitle = lastDuration.isEmpty()
+                ? getString(R.string.recent_sleep_session)
+                : lastDuration;
         if (!lastQuality.isEmpty()) subtitle += " • " + lastQuality;
         tvSleepCardSubtitle.setText(subtitle);
 
@@ -220,7 +217,7 @@ public class DashboardActivity extends AppCompatActivity {
             if (meta.length() > 0) meta.append(" • ");
             meta.append(lastBed).append(" → ").append(lastWake);
         }
-        tvSleepCardMeta.setText(meta.length() == 0 ? "Tap to view details" : meta.toString());
+        tvSleepCardMeta.setText(meta.length() == 0 ? getString(R.string.tap_to_view_details) : meta.toString());
     }
 
     private void updateMoodCard() {
@@ -228,15 +225,15 @@ public class DashboardActivity extends AppCompatActivity {
         String moodNote = prefs.getString(key("latest_mood_note"), "");
 
         if (mood == null || mood.isEmpty()) {
-            tvMoodCardTitle.setText("Track mood");
-            tvMoodCardSubtitle.setText("How are you feeling today?");
+            tvMoodCardTitle.setText(R.string.track_mood);
+            tvMoodCardSubtitle.setText(R.string.how_are_you_feeling_today);
             return;
         }
 
         tvMoodCardTitle.setText(mood);
 
         if (moodNote == null || moodNote.isEmpty()) {
-            tvMoodCardSubtitle.setText("Latest mood entry");
+            tvMoodCardSubtitle.setText(R.string.latest_mood_entry);
         } else {
             tvMoodCardSubtitle.setText(moodNote);
         }
@@ -263,29 +260,29 @@ public class DashboardActivity extends AppCompatActivity {
         int percent = total == 0 ? 0 : (done * 100) / total;
         progressHabits.setProgress(percent);
 
-        String emoji, message;
+        int emojiRes;
+        int messageRes;
         if (percent == 0) {
-            emoji = "😴";
-            message = "Wake up! Let's start your habits!";
+            emojiRes = 0;
+            messageRes = R.string.wake_up_lets_start_your_habits;
+            tvProgressEmoji.setText("😴");
         } else if (percent <= 25) {
-            emoji = "😐";
-            message = "Just getting started...";
+            tvProgressEmoji.setText("😐");
+            messageRes = R.string.just_getting_started;
         } else if (percent <= 50) {
-            emoji = "🙂";
-            message = "Getting there, keep going!";
+            tvProgressEmoji.setText("🙂");
+            messageRes = R.string.getting_there_keep_going;
         } else if (percent <= 75) {
-            emoji = "😊";
-            message = "You're doing great!";
+            tvProgressEmoji.setText("😊");
+            messageRes = R.string.youre_doing_great;
         } else if (percent < 100) {
-            emoji = "😄";
-            message = "Almost there, don't stop now!";
+            tvProgressEmoji.setText("😄");
+            messageRes = R.string.almost_there_dont_stop_now;
         } else {
-            emoji = "🥳";
-            message = "All done! You're amazing!";
+            tvProgressEmoji.setText("🥳");
+            messageRes = R.string.all_done_youre_amazing;
         }
-
-        tvProgressEmoji.setText(emoji);
-        tvProgressMessage.setText(message);
+        tvProgressMessage.setText(getString(messageRes));
     }
 
     private void updateStreak() {
@@ -313,13 +310,13 @@ public class DashboardActivity extends AppCompatActivity {
             int streak = dbHelper.getDailyCompletionStreak(currentUserEmail);
             tvStreakCount.setText(String.valueOf(streak));
 
-            if (streak == 0) tvStreakMessage.setText("Start your streak today! 💪");
-            else if (streak < 3) tvStreakMessage.setText("Good start, keep going!");
-            else if (streak < 7) tvStreakMessage.setText("You are doing great! 🔥");
-            else tvStreakMessage.setText("Unstoppable! 🚀");
+            if (streak == 0) tvStreakMessage.setText(R.string.start_your_streak_today);
+            else if (streak < 3) tvStreakMessage.setText(R.string.good_start_keep_going);
+            else if (streak < 7) tvStreakMessage.setText(R.string.you_are_doing_great);
+            else tvStreakMessage.setText(R.string.unstoppable);
         } else {
             tvStreakCount.setText("0");
-            tvStreakMessage.setText("Complete all habits today to start your streak.");
+            tvStreakMessage.setText(R.string.complete_all_habits_today_to_start_your_streak);
         }
 
         TextView[] dayViews = {dayMon, dayTue, dayWed, dayThu, dayFri, daySat, daySun};
@@ -368,7 +365,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void loadUserData() {
         String name = dbHelper.getUserName(currentUserEmail);
-        tvUserName.setText("Hi, " + name + " 👋");
+        tvUserName.setText(getString(R.string.hi_user, name == null ? "" : name));
 
         String avatarRes = prefs.getString("avatar_res_name", "");
         String avatarUri = prefs.getString("avatar_gallery_uri", "");
@@ -452,7 +449,7 @@ public class DashboardActivity extends AppCompatActivity {
         tooltip.addView(dotsRow);
 
         TextView tvTitle = new TextView(this);
-        tvTitle.setText(stepTitles[step]);
+        tvTitle.setText(getString(stepTitleRes[step]));
         tvTitle.setTextColor(Color.parseColor("#1F1A17"));
         tvTitle.setTextSize(20f);
         tvTitle.setTypeface(null, Typeface.BOLD);
@@ -460,7 +457,7 @@ public class DashboardActivity extends AppCompatActivity {
         tooltip.addView(tvTitle);
 
         TextView tvDesc = new TextView(this);
-        tvDesc.setText(stepDescs[step]);
+        tvDesc.setText(getString(stepDescRes[step]));
         tvDesc.setTextColor(Color.parseColor("#6F5B5B"));
         tvDesc.setTextSize(14f);
         tvDesc.setLineSpacing(6f, 1f);
@@ -472,7 +469,7 @@ public class DashboardActivity extends AppCompatActivity {
         btnRow.setGravity(Gravity.CENTER_VERTICAL);
 
         TextView btnSkip = new TextView(this);
-        btnSkip.setText("Skip tour");
+        btnSkip.setText(R.string.skip_tour);
         btnSkip.setTextColor(Color.parseColor("#8A817C"));
         btnSkip.setTextSize(14f);
         LinearLayout.LayoutParams skipParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
@@ -482,7 +479,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         boolean isLast = (step == stepViewIds.length - 1);
         Button btnNext = new Button(this);
-        btnNext.setText(isLast ? "Done 🎉" : "Next  →");
+        btnNext.setText(isLast ? R.string.done : R.string.next);
         btnNext.setTextColor(Color.WHITE);
         btnNext.setBackgroundResource(R.drawable.btn_add_circle);
         btnNext.setTextSize(14f);

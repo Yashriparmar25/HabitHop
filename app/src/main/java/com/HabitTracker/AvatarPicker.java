@@ -11,7 +11,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AvatarPicker extends AppCompatActivity {
+public class AvatarPicker extends Baseactivity {
 
     public static final String EXTRA_AVATAR_RES_NAME = "avatar_res_name";
     public static final String EXTRA_GALLERY_URI = "gallery_uri";

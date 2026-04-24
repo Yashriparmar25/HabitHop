@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HabitHop</string>
+    <string name="birthday_format">%1$d / %2$d / %3$d</string>
+    <string name="welcome_message">સ્વાગત છે, %1$s!</string>
+    <string name="mind">મન</string>
+    <string name="back">પાછળ</string>
+    <string name="new_habit">નવી આદત</string>
+    <string name="edit_profile">પ્રોફાઇલ સંપાદિત કરો</string>
+    <string name="logout">લોગ આઉટ</string>
+    <string name="setup_profile_title">તમારી પ્રોફાઇલ સેટ કરો</string>
+    <string name="setup_profile_subtitle">તમારા વિશે થોડું જણાવો</string>
+    <string name="tap_to_add_photo">ફોટો ઉમેરવા માટે ટૅપ કરો</string>
+    <string name="tap_to_change_avatar">અવતાર બદલવા માટે ટૅપ કરો</string>
+    <string name="tap_to_change_photo">ફોટો બદલવા માટે ટૅપ કરો</string>
+    <string name="unable_to_load_gallery_photo">ગેલેરીનો ફોટો લોડ કરી શકાયો નથી</string>
+    <string name="full_name">પૂરું નામ</string>
+    <string name="full_name_hint">ઉદા. લેન્ડો નોરિસ</string>
+    <string name="birthday">જન્મદિવસ</string>
+    <string name="birthday_hint">DD / MM / YYYY</string>
+    <string name="gender">લિંગ</string>
+    <string name="male">પુરુષ</string>
+    <string name="female">સ્ત્રી</string>
+    <string name="prefer_not_to_say">કહવું નથી</string>
+    <string name="my_main_goal">મારો મુખ્ય લક્ષ્ય</string>
+    <string name="goal_health">👩‍⚕️ વધુ સ્વસ્થ બનવું</string>
+    <string name="goal_learn">📚 વધુ શીખવું</string>
+    <string name="goal_fit">💪 ફિટ થવું</string>
+    <string name="goal_mindful">🧘 સજાગ બનવું</string>
+    <string name="goal_productive">⚡ વધુ ઉત્પાદક બનવું</string>
+    <string name="select_language">ભાષા પસંદ કરો</string>
+    <string name="english">અંગ્રેજી</string>
+    <string name="hindi">હિન્દી</string>
+    <string name="gujarati">ગુજરાતી</string>
+    <string name="my_habits">મારી આદતો</string>
+    <string name="habit_name_hint">આદતનું નામ, જેમ કે પાણી પીવું</string>
+    <string name="habit_desc_hint">વર્ણન (વૈકલ્પિક)</string>
+    <string name="save_habit">આદત સેવ કરો</string>
+    <string name="add_habit">+ આદત ઉમેરો</string>
+    <string name="lets_go">ચાલો શરૂ કરીએ!</string>
+    <string name="please_enter_habit_name">કૃપા કરીને આદતનું નામ દાખલ કરો</string>
+    <string name="please_enter_your_name">કૃપા કરીને તમારું નામ દાખલ કરો</string>
+
+    <string name="track_sleep">ઊંઘ ટ્રેક કરો</string>
+    <string name="start_your_first_sleep_session">તમારું પહેલું ઊંઘ સત્ર શરૂ કરો</string>
+    <string name="tap_to_open_sleep_tracker">સ્લીપ ટ્રેકર ખોલવા માટે ટૅપ કરો</string>
+    <string name="last_sleep">છેલ્લી ઊંઘ</string>
+    <string name="recent_sleep_session">તાજેતરનું ઊંઘ સત્ર</string>
+    <string name="tap_to_view_details">વિગતો જોવા માટે ટૅપ કરો</string>
+
+    <string name="track_mood">મૂડ ટ્રેક કરો</string>
+    <string name="how_are_you_feeling_today">આજે તમે કેમ અનુભવો છો?</string>
+    <string name="latest_mood_entry">તાજેતરની મૂડ એન્ટ્રી</string>
+
+    <string name="wake_up_lets_start_your_habits">જાગો! ચાલો તમારી આદતો શરૂ કરીએ!</string>
+    <string name="just_getting_started">હમણાં શરૂઆત થઈ છે...</string>
+    <string name="getting_there_keep_going">લગભગ પહોંચી ગયા, આગળ વધો!</string>
+    <string name="youre_doing_great">તમે ખૂબ સારું કરી રહ્યા છો!</string>
+    <string name="almost_there_dont_stop_now">લગભગ થઈ ગયું, હમણાં ન અટકો!</string>
+    <string name="all_done_youre_amazing">બધું થઈ ગયું! તમે અદ્ભુત છો!</string>
+
+    <string name="start_your_streak_today">આજે જ તમારી સ્ટ્રીક શરૂ કરો! 💪</string>
+    <string name="good_start_keep_going">સારી શરૂઆત, આગળ વધતા રહો!</string>
+    <string name="you_are_doing_great">તમે ખૂબ સારું કરી રહ્યા છો! 🔥</string>
+    <string name="unstoppable">અટકાવી ન શકાય તેવા! 🚀</string>
+    <string name="complete_all_habits_today_to_start_your_streak">તમારી સ્ટ્રીક શરૂ કરવા માટે આજે બધી આદતો પૂર્ણ કરો।</string>
+
+    <string name="skip_tour">ટૂર છોડો</string>
+    <string name="done">પૂર્ણ થયું 🎉</string>
+    <string name="next">આગળ  →</string>
+    <string name="hi_user">નમસ્તે, %1$s 👋</string>
+    <string name="your_buddy">🐾 તમારો સાથી</string>
+
+    <string name="your_profile">તમારી પ્રોફાઇલ</string>
+    <string name="home_dashboard">હોમ ડેશબોર્ડ</string>
+    <string name="journal">જર્નલ</string>
+    <string name="add_a_habit">આદત ઉમેરો</string>
+    <string name="reminders">રીમાઇન્ડર</string>
+    <string name="profile_settings">પ્રોફાઇલ સેટિંગ્સ</string>
+
+    <string name="my_profile">મારી પ્રોફાઇલ</string>
+    <string name="my_stats">મારા આંકડા</string>
+    <string name="habits">આદતો</string>
+    <string name="streak">સ્ટ્રીક</string>
+    <string name="today">આજ</string>
+    <string name="personal_info">વ્યક્તિગત માહિતી</string>
+    <string name="goal">લક્ષ્ય</string>
+    <string name="delete_account">એકાઉન્ટ કાઢી નાખો</string>
+    <string name="home">હોમ</string>
+    <string name="profile">પ્રોફાઇલ</string>
+    <string name="user">વપરાશકર્તા</string>
+
+    <string name="onboarding_profile_desc">તમારી પ્રોફાઇલ જોવા અને સંપાદિત કરવા, ફોટો બદલવા અને વ્યક્તિગત માહિતી અપડેટ કરવા માટે તમારા અવતાર પર ટૅપ કરો.</string>
+    <string name="onboarding_home_desc">આ તમારું હોમ છે! તમારી દૈનિક સ્ટ્રીક, ઊંઘ, મૂડ અને બધી આદતો એક નજરમાં જુઓ.</string>
+    <string name="onboarding_journal_desc">તમારી દૈનિક જર્નલ એન્ટ્રીઓ લખો, તમારા વિચાર શેર કરો અને રોજ કેવું લાગે છે તે ટ્રેક કરો.</string>
+    <string name="onboarding_add_habit_desc">ક્યારેય પણ + બટન પર ટૅપ કરીને નવી આદત ઉમેરો જેને તમે વિકસાવવી અને ટ્રેક કરવી માંગો છો.</string>
+    <string name="onboarding_reminders_desc">સ્માર્ટ રીમાઇન્ડર સેટ કરો જેથી તમે તમારી આદતો ક્યારેય ભૂલો નહીં.</string>
+    <string name="onboarding_profile_settings_desc">તમારા પ્રગતિ આંકડા જુઓ, પ્રોફાઇલ વિગતો સંપાદિત કરો અને તમારું ખાતું સંભાળો.</string>
+</resources>

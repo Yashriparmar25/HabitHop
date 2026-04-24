@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class PastEntriesActivity extends AppCompatActivity {
+public class PastEntriesActivity extends Baseactivity {
 
     private RecyclerView recyclerView;
     private DatabaseHelper dbHelper;

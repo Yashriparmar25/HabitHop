@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HabitHop
-
-    </string>
+    <string name="app_name">HabitHop</string>
     <string name="birthday_format">%1$d / %2$d / %3$d</string>
     <string name="welcome_message">Welcome, %1$s!</string>
     <string name="mind">Mind</string>
@@ -9,4 +8,91 @@
     <string name="new_habit">New Habit</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="logout">Logout</string>
+    <string name="setup_profile_title">Set Up Your Profile</string>
+    <string name="setup_profile_subtitle">Tell us a little about yourself</string>
+    <string name="tap_to_add_photo">Tap to add photo</string>
+    <string name="tap_to_change_avatar">Tap to change avatar</string>
+    <string name="tap_to_change_photo">Tap to change photo</string>
+    <string name="unable_to_load_gallery_photo">Unable to load gallery photo</string>
+    <string name="full_name">Full Name</string>
+    <string name="full_name_hint">e.g. Lando Norris</string>
+    <string name="birthday">Birthday</string>
+    <string name="birthday_hint">DD / MM / YYYY</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="prefer_not_to_say">Prefer not to say</string>
+    <string name="my_main_goal">My Main Goal</string>
+    <string name="goal_health">👩‍⚕️ Be Healthier</string>
+    <string name="goal_learn">📚 Learn More</string>
+    <string name="goal_fit">💪 Get Fit</string>
+    <string name="goal_mindful">🧘 Be Mindful</string>
+    <string name="goal_productive">⚡ Be Productive</string>
+    <string name="select_language">Select Language</string>
+    <string name="english">English</string>
+    <string name="hindi">Hindi</string>
+    <string name="gujarati">Gujarati</string>
+    <string name="my_habits">My Habits</string>
+    <string name="habit_name_hint">Habit name e.g. Drink Water</string>
+    <string name="habit_desc_hint">Description (optional)</string>
+    <string name="save_habit">Save Habit</string>
+    <string name="add_habit">+ Add Habit</string>
+    <string name="lets_go">Let\'s Go!</string>
+    <string name="please_enter_habit_name">Please enter a habit name</string>
+    <string name="please_enter_your_name">Please enter your name</string>
+
+    <string name="track_sleep">Track sleep</string>
+    <string name="start_your_first_sleep_session">Start your first sleep session</string>
+    <string name="tap_to_open_sleep_tracker">Tap to open sleep tracker</string>
+    <string name="last_sleep">Last sleep</string>
+    <string name="recent_sleep_session">Recent sleep session</string>
+    <string name="tap_to_view_details">Tap to view details</string>
+
+    <string name="track_mood">Track mood</string>
+    <string name="how_are_you_feeling_today">How are you feeling today?</string>
+    <string name="latest_mood_entry">Latest mood entry</string>
+
+    <string name="wake_up_lets_start_your_habits">Wake up! Let\'s start your habits!</string>
+    <string name="just_getting_started">Just getting started...</string>
+    <string name="getting_there_keep_going">Getting there, keep going!</string>
+    <string name="youre_doing_great">You\'re doing great!</string>
+    <string name="almost_there_dont_stop_now">Almost there, don\'t stop now!</string>
+    <string name="all_done_youre_amazing">All done! You\'re amazing!</string>
+
+    <string name="start_your_streak_today">Start your streak today! 💪</string>
+    <string name="good_start_keep_going">Good start, keep going!</string>
+    <string name="you_are_doing_great">You are doing great! 🔥</string>
+    <string name="unstoppable">Unstoppable! 🚀</string>
+    <string name="complete_all_habits_today_to_start_your_streak">Complete all habits today to start your streak.</string>
+
+    <string name="skip_tour">Skip tour</string>
+    <string name="done">Done 🎉</string>
+    <string name="next">Next  →</string>
+    <string name="hi_user">Hi, %1$s 👋</string>
+    <string name="your_buddy">🐾 Your Buddy</string>
+
+    <string name="your_profile">Your Profile</string>
+    <string name="home_dashboard">Home Dashboard</string>
+    <string name="journal">Journal</string>
+    <string name="add_a_habit">Add a Habit</string>
+    <string name="reminders">Reminders</string>
+    <string name="profile_settings">Profile Settings</string>
+    <string name="my_profile">My Profile</string>
+    <string name="my_stats">My Stats</string>
+    <string name="habits">Habits</string>
+    <string name="streak">Streak</string>
+    <string name="today">Today</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="goal">Goal</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="user">User</string>
+
+    <string name="onboarding_profile_desc">Tap your avatar to view and edit your profile, change your photo, and update personal info.</string>
+    <string name="onboarding_home_desc">This is your home! See your daily streak, sleep, mood, and all your habits at a glance.</string>
+    <string name="onboarding_journal_desc">Write your daily journal entries, express your thoughts, and track how you feel each day.</string>
+    <string name="onboarding_add_habit_desc">Tap the + button anytime to add a new habit you want to build and track daily.</string>
+    <string name="onboarding_reminders_desc">Set smart reminders so you never forget to complete your habits every day.</string>
+    <string name="onboarding_profile_settings_desc">View your progress stats, edit your profile details, and manage your account here.</string>
 </resources>

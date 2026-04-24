@@ -8,18 +8,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends Baseactivity {
 
     private ImageView ivWelcomeAvatar;
     private TextView tvWelcomeName;
@@ -99,6 +96,8 @@ public class WelcomeActivity extends AppCompatActivity {
         } else if (avatarRes != null && !avatarRes.isEmpty()) {
             int resId = getResources().getIdentifier(avatarRes, "drawable", getPackageName());
             if (resId != 0) ivWelcomeAvatar.setImageResource(resId);
+        } else {
+            ivWelcomeAvatar.setImageResource(R.drawable.turtle);
         }
 
         setCompanionFromAvatar(avatarRes);
@@ -140,13 +139,14 @@ public class WelcomeActivity extends AppCompatActivity {
         else if ("pig".equals(avatarResName)) tvCompanionLabel.setText("🐾 OinkJoy");
         else if ("mouse".equals(avatarResName)) tvCompanionLabel.setText("🐾 CheeseBelle");
         else if ("camel".equals(avatarResName)) tvCompanionLabel.setText("🐾 ToffeeTongue");
+        else tvCompanionLabel.setText("🐾 Your Buddy");
     }
 
     private void addHabitRow(String habitName) {
         TextView chip = new TextView(this);
         chip.setText("✅  " + habitName);
         chip.setTextSize(13f);
-        chip.setTextColor(getResources().getColor(R.color.text_primary, getTheme()));
+        chip.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
