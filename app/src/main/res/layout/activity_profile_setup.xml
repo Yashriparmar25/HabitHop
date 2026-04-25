@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tap_to_add_photo"
-                    android:textColor="@color/moss_green"
+                    android:textColor="@color/Black"
                     android:textSize="13sp"
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/full_name"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/Black"
                 android:textSize="13sp"
                 android:layout_marginBottom="6dp"/>
 
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/birthday"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/Black"
                 android:textSize="13sp"
                 android:layout_marginBottom="6dp"/>
 
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gender"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/Black"
                 android:textSize="13sp"
                 android:layout_marginBottom="10dp"/>
 
@@ -168,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/my_main_goal"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/Black"
                 android:textSize="13sp"
                 android:layout_marginBottom="10dp"/>
 
@@ -216,43 +216,55 @@
             </com.google.android.material.chip.ChipGroup>
 
             <!-- Language selector -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/select_language"
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp"
-                android:layout_marginBottom="10dp"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:layout_marginBottom="28dp">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
 
-                <Button
-                    android:id="@+id/btn_lang_english"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/english"
-                    android:layout_marginEnd="4dp"/>
+                    android:text="@string/select_language"
+                    android:textSize="14sp"
+                    android:textColor="#8A817C" />
 
-                <Button
-                    android:id="@+id/btn_lang_hindi"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/hindi"
-                    android:layout_marginEnd="4dp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
-                <Button
-                    android:id="@+id/btn_lang_gujarati"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/gujarati"/>
+                    <Button
+                        android:id="@+id/btn_lang_english"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:text="@string/english"
+                        android:textAllCaps="true" />
+
+                    <Button
+                        android:id="@+id/btn_lang_hindi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:text="@string/hindi"
+                        android:textAllCaps="true" />
+
+                    <Button
+                        android:id="@+id/btn_lang_gujarati"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:height="48dp"
+                        android:textSize="12sp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:text="@string/gujarati"
+                        android:textAllCaps="true" />
+                </LinearLayout>
             </LinearLayout>
 
             <!-- ===== HABITS SECTION ===== -->
