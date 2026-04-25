@@ -77,6 +77,8 @@
     <string name="add_a_habit">आदत जोड़ें</string>
     <string name="reminders">रिमाइंडर</string>
     <string name="profile_settings">प्रोफ़ाइल सेटिंग्स</string>
+    <string name="date_format_simple">%1$d / %2$d / %3$d</string>
+    <string name="habit_prefix">✓ %1$s</string>
     <string name="my_profile">मेरी प्रोफ़ाइल</string>
     <string name="my_stats">मेरे आँकड़े</string>
     <string name="habits">आदतें</string>

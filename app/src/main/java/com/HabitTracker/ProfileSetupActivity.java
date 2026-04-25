@@ -23,10 +23,11 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class ProfileSetupActivity extends Baseactivity {
 
-    TextInputEditText etFullname, etBirthday, etNewHabitName, etNewHabitDesc;
+    TextInputEditText etFullName, etBirthday, etNewHabitName, etNewHabitDesc;
     LinearLayout llHabitInput, llHabitsList;
     Button btnAddHabit, btnSaveHabit, btnContinue;
     Button btnLangEnglish, btnLangHindi, btnLangGujarati;
@@ -38,6 +39,7 @@ public class ProfileSetupActivity extends Baseactivity {
 
     private String selectedGender = "";
     private String selectedGoal = "";
+    private String selectedLanguage = "en";
     private String pickedAvatarResName = "";
     private String pickedGalleryUri = "";
 
@@ -94,7 +96,7 @@ public class ProfileSetupActivity extends Baseactivity {
         currentUserEmail = prefs.getString("current_user_email", "");
         dbHelper = new DatabaseHelper(this);
 
-        etFullname = findViewById(R.id.et_fullname);
+        etFullName = findViewById(R.id.et_fullname);
         etBirthday = findViewById(R.id.et_birthday);
         etNewHabitName = findViewById(R.id.et_new_habit_name);
         etNewHabitDesc = findViewById(R.id.et_new_habit_desc);
@@ -111,6 +113,9 @@ public class ProfileSetupActivity extends Baseactivity {
         btnLangEnglish = findViewById(R.id.btn_lang_english);
         btnLangHindi = findViewById(R.id.btn_lang_hindi);
         btnLangGujarati = findViewById(R.id.btn_lang_gujarati);
+
+        selectedLanguage = Localhelper.getPersistedLanguage(this);
+        highlightSelectedLanguage(selectedLanguage);
 
         loadExistingProfile();
 
@@ -142,7 +147,7 @@ public class ProfileSetupActivity extends Baseactivity {
         etBirthday.setOnClickListener(v -> {
             Calendar cal = Calendar.getInstance();
             new DatePickerDialog(this, (view, year, month, day) -> {
-                etBirthday.setText(day + " / " + (month + 1) + " / " + year);
+                etBirthday.setText(getString(R.string.date_format_simple, day, month + 1, year));
             }, cal.get(Calendar.YEAR) - 20, cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
         });
 
@@ -152,8 +157,8 @@ public class ProfileSetupActivity extends Baseactivity {
         });
 
         btnSaveHabit.setOnClickListener(v -> {
-            String name = etNewHabitName.getText().toString().trim();
-            String desc = etNewHabitDesc.getText().toString().trim();
+            String name = etNewHabitName.getText() != null ? etNewHabitName.getText().toString().trim() : "";
+            String desc = etNewHabitDesc.getText() != null ? etNewHabitDesc.getText().toString().trim() : "";
             if (name.isEmpty()) {
                 etNewHabitName.setError(getString(R.string.please_enter_habit_name));
                 return;
@@ -163,7 +168,7 @@ public class ProfileSetupActivity extends Baseactivity {
             habitDescs.add(desc);
 
             TextView habitChip = new TextView(this);
-            habitChip.setText("✓ " + name);
+            habitChip.setText(getString(R.string.habit_prefix, name));
             habitChip.setTextColor(ContextCompat.getColor(this, R.color.dark_green));
             habitChip.setTextSize(14);
             habitChip.setPadding(16, 12, 16, 12);
@@ -184,14 +189,40 @@ public class ProfileSetupActivity extends Baseactivity {
 
         btnContinue.setOnClickListener(v -> saveAndContinue());
 
-        btnLangEnglish.setOnClickListener(v -> changeLanguage("en"));
-        btnLangHindi.setOnClickListener(v -> changeLanguage("hi"));
-        btnLangGujarati.setOnClickListener(v -> changeLanguage("gu"));
+        btnLangEnglish.setOnClickListener(v -> {
+            selectedLanguage = "en";
+            highlightSelectedLanguage("en");
+            Localhelper.setLocale(this, "en");
+            recreate();
+        });
+
+        btnLangHindi.setOnClickListener(v -> {
+            selectedLanguage = "hi";
+            highlightSelectedLanguage("hi");
+            Localhelper.setLocale(this, "hi");
+            recreate();
+        });
+
+        btnLangGujarati.setOnClickListener(v -> {
+            selectedLanguage = "gu";
+            highlightSelectedLanguage("gu");
+            Localhelper.setLocale(this, "gu");
+            recreate();
+        });
     }
 
-    private void changeLanguage(String lang) {
-        Localhelper.setLocale(this, lang);
-        recreate();
+    private void highlightSelectedLanguage(String lang) {
+        btnLangEnglish.setAlpha(0.4f);
+        btnLangHindi.setAlpha(0.4f);
+        btnLangGujarati.setAlpha(0.4f);
+
+        if ("hi".equals(lang)) {
+            btnLangHindi.setAlpha(1.0f);
+        } else if ("gu".equals(lang)) {
+            btnLangGujarati.setAlpha(1.0f);
+        } else {
+            btnLangEnglish.setAlpha(1.0f);
+        }
     }
 
     private void loadExistingProfile() {
@@ -206,7 +237,7 @@ public class ProfileSetupActivity extends Baseactivity {
             String avatarRes = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_AVATAR_RES));
             String avatarUri = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_AVATAR_URI));
 
-            if (name != null) etFullname.setText(name);
+            if (name != null) etFullName.setText(name);
             if (birthday != null) etBirthday.setText(birthday);
 
             selectedGender = gender != null ? gender : "";
@@ -228,17 +259,17 @@ public class ProfileSetupActivity extends Baseactivity {
     }
 
     void saveAndContinue() {
-        String fullname = etFullname.getText().toString().trim();
+        String fullName = etFullName.getText() != null ? etFullName.getText().toString().trim() : "";
         String birthday = etBirthday.getText() != null ? etBirthday.getText().toString().trim() : "";
 
-        if (fullname.isEmpty()) {
-            etFullname.setError(getString(R.string.please_enter_your_name));
+        if (fullName.isEmpty()) {
+            etFullName.setError(getString(R.string.please_enter_your_name));
             return;
         }
 
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("current_user_email", currentUserEmail);
-        editor.putString("name", fullname);
+        editor.putString("name", fullName);
         editor.putString("birthday", birthday);
         editor.putString("gender", selectedGender);
         editor.putString("goal", selectedGoal);
@@ -255,7 +286,7 @@ public class ProfileSetupActivity extends Baseactivity {
         if (exists) {
             dbHelper.updateUserProfile(
                     currentUserEmail,
-                    fullname,
+                    fullName,
                     birthday,
                     selectedGender,
                     selectedGoal,
@@ -265,7 +296,7 @@ public class ProfileSetupActivity extends Baseactivity {
         } else {
             dbHelper.saveUser(
                     currentUserEmail,
-                    fullname,
+                    fullName,
                     birthday,
                     selectedGender,
                     selectedGoal,
@@ -275,7 +306,7 @@ public class ProfileSetupActivity extends Baseactivity {
         }
 
         String today = new java.text.SimpleDateFormat(
-                "yyyy-MM-dd", java.util.Locale.getDefault()
+                "yyyy-MM-dd", Locale.getDefault()
         ).format(new java.util.Date());
 
         for (int i = 0; i < habitNames.size(); i++) {

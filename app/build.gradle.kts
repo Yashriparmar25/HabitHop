@@ -47,7 +47,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
 
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
@@ -57,7 +57,7 @@ dependencies {
     implementation(libs.activity.compose)
     debugImplementation(libs.ui.tooling)
 
-    implementation("com.airbnb.android:lottie:6.3.0")
+    implementation("com.airbnb.android:lottie:6.7.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
